@@ -3,6 +3,7 @@ import org.vu.contest.ContestEvaluation;
 
 import java.util.Random;
 import java.util.Properties;
+import static java.lang.System.out;
 
 public class player0 implements ContestSubmission
 {
@@ -38,10 +39,14 @@ public class player0 implements ContestSubmission
 
 		// Do sth with property values, e.g. specify relevant settings of your algorithm
     if(isMultimodal){
-        // Do sth
-    }else{
-        // Do sth else
+      out.println("Multimodal");
     }
+		if(hasStructure){
+			out.println("Regular");
+		}
+		if(isSeparable){
+			out.println("Separable");
+		}
   }
 
 	public void run()
@@ -67,17 +72,23 @@ public class player0 implements ContestSubmission
 
 	public void hillClimber()
 	{
-		double currBest[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+		double currBest[] = randomStart(10);
 		double currBestFitness = (double) evaluation_.evaluate(currBest);
 
 		// We already did one eval..
 		for(int evals = 1; evals < evaluations_limit_; evals++)
 		{
-		    double child[] = sumArray(currBest, randomArray(10));
+		    double child[];
+				do
+				{
+				 	child = randomArray(10);
+				} while(!verify(child));
+
+				child = sumArray(currBest, child);
 
 		    double fitness = (double) evaluation_.evaluate(child);
 
-		    if (fitness > currBestFitness) {
+		    if (fitness >= currBestFitness) {
 		    	currBestFitness = fitness;
 					currBest = child;
 		    }
@@ -90,19 +101,41 @@ public class player0 implements ContestSubmission
 
 			for (int i = 0; i < n; i++) {
 				// arr[i] = rnd_.nextDouble() - 0.5;
-				arr[i] = rnd_.nextGaussian();
+				arr[i] = rnd_.nextGaussian()*0.1;
 			}
 
 			return arr;
 	}
 
-	public double[] sumArray(double[] m, double[] n)
+	public double[] sumArray(double[] a, double[] b)
 	{
-		for (int i = 0; i < m.length; i++) {
-			n[i] += m[i];
+		for (int i = 0; i < a.length; i++) {
+			b[i] += a[i];
 		}
 
-		return n;
+		return b;
+	}
+
+	public double[] randomStart(int n)
+	{
+			double arr[] = new double[n];
+
+			for (int i = 0; i < n; i++) {
+				arr[i] = (rnd_.nextDouble() - 0.5) * 10;
+			}
+
+			return arr;
+	}
+
+	public boolean verify(double[] a)
+	{
+		for (int i = 0; i < a.length; i++) {
+			if(a[i] < -5.0 || a[i] > 5.0)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
