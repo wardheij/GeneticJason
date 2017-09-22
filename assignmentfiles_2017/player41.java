@@ -114,7 +114,7 @@ public class player41 implements ContestSubmission
 			double arr[] = new double[n];
 
 			if (fitness < 0.1){
-				fitness = 0.1
+				fitness = 0.1;
 			}
 
 			for (int i = 0; i < n; i++) {
