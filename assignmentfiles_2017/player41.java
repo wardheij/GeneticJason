@@ -118,10 +118,10 @@ public class player41 implements ContestSubmission
 				fitness = 1;
 			} else {
 				// fitness *= fitness;
-				fitness = 1 << (int)fitness;
+				// fitness = 1 << (int)fitness;
 				// fitness = factorial((int)fitness);
 				// fitness = gammaFact(fitness);
-				// fitness = Math.pow(2, fitness);
+				fitness = Math.pow(1.5, fitness);
 			}
 
 			for (int i = 0; i < n; i++) {
