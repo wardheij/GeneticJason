@@ -1,4 +1,4 @@
-javac -cp contest.jar player41.java
+javac -cp 'math.jar;contest.jar' player41.java
 jar cmf MainClass.txt submission.jar player41.class
 echo "Sphere: "
 java -jar testrun.jar -submission=player41 -evaluation=SphereEvaluation -seed=1

@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.Properties;
 import static java.lang.System.out;
 
+
 public class player41 implements ContestSubmission
 {
 	Random rnd_;
@@ -116,7 +117,11 @@ public class player41 implements ContestSubmission
 			if (fitness <= 1){
 				fitness = 1;
 			} else {
-				fitness *= fitness;
+				// fitness *= fitness;
+				fitness = 1 << (int)fitness;
+				// fitness = factorial((int)fitness);
+				// fitness = gammaFact(fitness);
+				// fitness = Math.pow(2, fitness);
 			}
 
 			for (int i = 0; i < n; i++) {
@@ -159,4 +164,17 @@ public class player41 implements ContestSubmission
 		return true;
 	}
 
+	public int factorial(int n)
+	{
+		int total = 1;
+		for (int i = 0; i < n; i++) {
+			total *= n;
+		}
+		return n;
+	}
+
+	public double gammaFact(double n)
+	{
+		return Math.sqrt(2 * Math.PI * n)* Math.pow(n / Math.E, n);
+	}
 }
