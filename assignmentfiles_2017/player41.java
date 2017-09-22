@@ -72,19 +72,33 @@ public class player41 implements ContestSubmission
 
 	public void hillClimber()
 	{
+		int evals = 0;
 		double currBest[] = randomStart(10);
 		double currBestFitness = (double) evaluation_.evaluate(currBest);
+		evals++;
 
-		// We already did one eval..
-		for(int evals = 1; evals < evaluations_limit_; evals++)
+		// Test randoms for 1% of evals
+		for(int i = 1; i < evaluations_limit_ * 0.01; i++, evals++)
+		{
+			double child[]= randomStart(10);
+
+			double fitness = (double) evaluation_.evaluate(child);
+
+			if (fitness >= currBestFitness) {
+				currBestFitness = fitness;
+				currBest = child;
+			}
+		}
+
+		// Hillclimb
+		for(; evals < evaluations_limit_; evals++)
 		{
 		    double child[];
 				do
 				{
 				 	child = randomArray(10);
+					child = sumArray(currBest, child);
 				} while(!verify(child));
-
-				child = sumArray(currBest, child);
 
 		    double fitness = (double) evaluation_.evaluate(child);
 
