@@ -110,15 +110,17 @@ public class player41 implements ContestSubmission
 
 	}
 
-	public double[] randomArray(int n, int fitness){
+	public double[] randomArray(int n, double fitness){
 			double arr[] = new double[n];
 
-			if (fitness < 0.1){
-				fitness = 0.1;
+			if (fitness <= 1){
+				fitness = 1;
+			} else {
+				fitness *= fitness;
 			}
 
 			for (int i = 0; i < n; i++) {
-				// arr[i] = rnd_.nextDouble() - 0.5;
+				// arr[i] = (rnd_.nextDouble() - 0.5)*2 / fitness;
 
 				arr[i] = rnd_.nextGaussian() / fitness;
 			}
