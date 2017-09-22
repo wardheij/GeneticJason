@@ -78,7 +78,7 @@ public class player41 implements ContestSubmission
 		evals++;
 
 		// Test randoms for 1% of evals
-		for(int i = 1; i < evaluations_limit_ * 0.01; i++, evals++)
+		for(int i = 0; i < evaluations_limit_ * 0.01; i++, evals++)
 		{
 			double child[]= randomStart(10);
 
@@ -96,7 +96,7 @@ public class player41 implements ContestSubmission
 		    double child[];
 				do
 				{
-				 	child = randomArray(10);
+				 	child = randomArray(10, currBestFitness);
 					child = sumArray(currBest, child);
 				} while(!verify(child));
 
@@ -110,12 +110,17 @@ public class player41 implements ContestSubmission
 
 	}
 
-	public double[] randomArray(int n){
+	public double[] randomArray(int n, int fitness){
 			double arr[] = new double[n];
+
+			if (fitness < 0.1){
+				fitness = 0.1
+			}
 
 			for (int i = 0; i < n; i++) {
 				// arr[i] = rnd_.nextDouble() - 0.5;
-				arr[i] = rnd_.nextGaussian()*0.1;
+
+				arr[i] = rnd_.nextGaussian() / fitness;
 			}
 
 			return arr;
