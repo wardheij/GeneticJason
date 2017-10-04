@@ -3,8 +3,8 @@ import org.vu.contest.ContestEvaluation;
 
 import java.util.Random;
 import java.util.Properties;
+import java.util.ArrayList;
 import static java.lang.System.out;
-
 
 public class player41 implements ContestSubmission
 {
@@ -54,7 +54,9 @@ public class player41 implements ContestSubmission
 	{
 		// Run your algorithm here
 
-		hillClimber();
+		// hillClimber();
+		// fireworks();
+		plantPropagation();
 
     // int evals = 0;
     // // init population
@@ -69,6 +71,14 @@ public class player41 implements ContestSubmission
     //     // Select survivors
     // }
 
+	}
+
+	public void fireworks()
+	{
+		double mins[] = {-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0};
+		double maxs[] = {5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0};
+		FA fire = new FA(10,10,1,1,1,10,maxs,mins,"",evaluation_);
+		fire.FAframework();
 	}
 
 	public void hillClimber()
@@ -167,14 +177,171 @@ public class player41 implements ContestSubmission
 	public int factorial(int n)
 	{
 		int total = 1;
-		for (int i = 0; i < n; i++) {
-			total *= n;
+		for (int i = 1; i < n; i++) {
+			total *= i;
 		}
-		return n;
+		return total;
 	}
 
 	public double gammaFact(double n)
 	{
 		return Math.sqrt(2 * Math.PI * n)* Math.pow(n / Math.E, n);
+	}
+
+	public ArrayList<double[]> createpopulation(int popSize, int dimension)
+	{
+		ArrayList<double[]> population = new ArrayList<double[]>();
+		for(int i = 0; i < popSize; i++)
+		{
+			population.add(randomStart(dimension));
+		}
+		return population;
+	}
+
+	public double[] getFitnessPopulation(ArrayList<double[]> population, int popSize)
+	{
+		double fitness[] = new double[popSize];
+		for(int i = 0; i < popSize; i++)
+		{
+			fitness[i] = (double) evaluation_.evaluate(population.get(i));
+			if(fitness[i] < 0.0)
+			{
+				fitness[i] = 0.0;
+			}
+		}
+		return fitness;
+	}
+
+	public void sortPopulation(ArrayList<double[]> population, double[] fitness, int popSize)
+	{
+		double tmp[];
+		double temp;
+
+		// Sinksort
+		for(int i = 0; i < popSize; i++)
+		{
+			for(int j = 1; j < popSize - i; j++)
+			{
+				if(fitness[j - 1] < fitness[j])
+				{
+					temp = fitness[j - 1];
+					fitness[j - 1] = fitness[j];
+					fitness[j] = temp;
+
+					tmp = population.get(j - 1);
+					population.set(j - 1, population.get(j));
+					population.set(j, tmp);
+				}
+			}
+		}
+	}
+
+	public double[] getD(int n, double fitness){
+			double arr[] = new double[n];
+
+			for (int i = 0; i < n; i++) {
+				// arr[i] = 2 * (1 - fitness) * (rnd_.nextDouble() - 0.5);
+				arr[i] = rnd_.nextGaussian() / Math.pow(1.5, fitness);
+
+			}
+
+			return arr;
+	}
+
+	public ArrayList<double[]> createRunners(double[] origin, double fitness, int maxRunners, int dimensions)
+	{
+		ArrayList<double[]> children = new ArrayList<double[]>();
+
+		// double correctedFitness = (1. / 2.) * (Math.tanh(4. * (fitness / 10.) - 2.) + 1.);
+		double correctedFitness = fitness / 10;
+		int numberOfRunners = (int)Math.ceil(maxRunners * correctedFitness * rnd_.nextDouble());
+
+		if (numberOfRunners == 0) {
+			numberOfRunners = 1;
+		}
+
+		for(int i = 0; i < numberOfRunners; i++)
+		{
+			double child[] = new double[dimensions];
+
+			do
+			{
+				// child = sumArray(origin, getD(10, fitness));
+				child = sumArray(origin, randomArray(10, fitness));
+
+			} while(!verify(child));
+
+			children.add(child);
+		}
+
+		return children;
+	}
+
+	public double[] copyArray(double[] in)
+	{
+		double out[] = new double[in.length];
+
+		for(int i = 0; i < in.length; i++)
+		{
+			out[i] = in[i];
+		}
+
+		return out;
+	}
+
+
+	public void plantPropagation()
+	{
+		int dimensions = 10;
+		// SPPA parameters
+		int startPopSize = 25;
+		int popSelection = 100;
+		int maxRunners = 5;
+		int generations = evaluations_limit_;
+
+		ArrayList<double[]> population = createpopulation(startPopSize, dimensions);
+		double fitness[];
+		ArrayList<double[]> newPopulation = new ArrayList<double[]>();
+
+		for(int i = 0; i < generations; i++)
+		{
+			fitness = getFitnessPopulation(population, population.size());
+
+			// Sort population by fitness descending
+			sortPopulation(population, fitness, population.size());
+			// out.println("Generation: " + i + "   Best fitness: " + fitness[0] + "   Current population: " + population.size());
+
+			// We're done here.
+			if(fitness[0] == 10.0)
+			{
+				break;
+			}
+
+			// This population sucks major ass. Lets rebuild society...
+			if(fitness[0] <= 0.0000001)
+			{
+				population = createpopulation(startPopSize, dimensions);
+			}
+
+			newPopulation.clear();
+
+			// limit the amount of new stuff...
+			for(int j = 0; j < Math.min(population.size(), popSelection); j++)
+			{
+				ArrayList<double[]> runners = createRunners(population.get(j), fitness[j], maxRunners, dimensions);
+
+				// New population
+				newPopulation.add(population.get(j));
+				newPopulation.addAll(runners);
+			}
+
+			// Create new copy.
+			population.clear();
+			for (int j = 0; j < newPopulation.size(); j++)
+			{
+				population.add(copyArray(newPopulation.get(j)));
+			}
+
+		}
 	}
 }
