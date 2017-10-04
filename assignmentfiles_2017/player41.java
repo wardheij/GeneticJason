@@ -12,6 +12,8 @@ public class player41 implements ContestSubmission
 	ContestEvaluation evaluation_;
     private int evaluations_limit_;
 
+	int doThis;
+
 	public player41()
 	{
 		rnd_ = new Random();
@@ -38,39 +40,42 @@ public class player41 implements ContestSubmission
     boolean hasStructure = Boolean.parseBoolean(props.getProperty("Regular"));
     boolean isSeparable = Boolean.parseBoolean(props.getProperty("Separable"));
 
+		doThis = 0;
 		// Do sth with property values, e.g. specify relevant settings of your algorithm
     if(isMultimodal){
       out.println("Multimodal");
+			doThis = 0;
     }
 		if(hasStructure){
 			out.println("Regular");
+			doThis = 0;
 		}
 		if(isSeparable){
 			out.println("Separable");
 		}
+
+
   }
 
 	public void run()
 	{
 		// Run your algorithm here
+		if(doThis == 0)
+		{
+			//hillClimber();
 
-		// hillClimber();
-		// fireworks();
-		plantPropagation();
-
-    // int evals = 0;
-    // // init population
-    // // calculate fitness
-    // while(evals<evaluations_limit_){
-    //     // Select parents
-    //     // Apply crossover / mutation operators
-    //     double child[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-    //     // Check fitness of unknown fuction
-    //     Double fitness = (double) evaluation_.evaluate(child);
-    //     evals++;
-    //     // Select survivors
-    // }
-
+			// This is basically a hillclimber with 100 startingpoints..
+			// The best one gets taken and gets 10 children etc.
+			plantPropagation(100,1,10);
+		}
+		else if (doThis == 1)
+		{
+			plantPropagation(100,100,1);
+		}
+		else if (doThis == 2)
+		{
+			// fireworks();
+		}
 	}
 
 	public void fireworks()
@@ -222,7 +227,7 @@ public class player41 implements ContestSubmission
 		{
 			for(int j = 1; j < popSize - i; j++)
 			{
-				if(fitness[j - 1] < fitness[j])
+				if(fitness[j - 1] <= fitness[j])
 				{
 					temp = fitness[j - 1];
 					fitness[j - 1] = fitness[j];
@@ -290,13 +295,13 @@ public class player41 implements ContestSubmission
 	}
 
 
-	public void plantPropagation()
+	public void plantPropagation(int a, int b, int c)
 	{
 		int dimensions = 10;
 		// SPPA parameters
-		int startPopSize = 25;
-		int popSelection = 100;
-		int maxRunners = 5;
+		int startPopSize = a;
+		int popSelection = b;
+		int maxRunners = c;
 		int generations = evaluations_limit_;
 
 		ArrayList<double[]> population = createpopulation(startPopSize, dimensions);
