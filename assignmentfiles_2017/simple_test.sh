@@ -1,5 +1,5 @@
 javac -cp 'contest.jar' player41.java FA.java Spark.java
-jar cmf MainClass.txt submission.jar *.class
+jar cmf MainClass.txt submission.jar player41.class FA.class Spark.class
 echo "Sphere: "
 java -jar testrun.jar -submission=player41 -evaluation=SphereEvaluation -seed=1
 echo ""

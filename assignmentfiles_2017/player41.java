@@ -64,18 +64,29 @@ public class player41 implements ContestSubmission
 		{
 			//hillClimber();
 
-			// This is basically a hillclimber with 100 startingpoints..
+			// NOTE: This is basically a hillclimber with 100 startingpoints..
 			// The best one gets taken and gets 10 children etc.
 			plantPropagation(100,1,10);
 		}
 		else if (doThis == 1)
 		{
-			plantPropagation(100,100,1);
+			plantPropagation(100,100,5);
 		}
 		else if (doThis == 2)
 		{
-			// fireworks();
+			// NOTE: can't get this to work currently. Imports.
+			fireworks();
 		}
+
+		// NOTE: THINGS WE NEED ASAP:
+		// Gradient ascent: https://en.wikipedia.org/wiki/Gradient_descent
+
+		// NOTE: other interesting (and quite easily implemented) options include:
+		// CMA-ES: https://en.wikipedia.org/wiki/CMA-ES
+		// ACO: https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms
+		// PSO: https://en.wikipedia.org/wiki/Particle_swarm_optimization
+		// FA: https://en.wikipedia.org/wiki/Firefly_algorithm
+		// EDA: https://en.wikipedia.org/wiki/Estimation_of_distribution_algorithm
 	}
 
 	public void fireworks()
@@ -247,7 +258,7 @@ public class player41 implements ContestSubmission
 
 			for (int i = 0; i < n; i++) {
 				// arr[i] = 2 * (1 - fitness) * (rnd_.nextDouble() - 0.5);
-				arr[i] = rnd_.nextGaussian() / Math.pow(1.5, fitness);
+				// arr[i] = rnd_.nextGaussian() / Math.pow(1.5, fitness);
 
 			}
 
@@ -258,8 +269,10 @@ public class player41 implements ContestSubmission
 	{
 		ArrayList<double[]> children = new ArrayList<double[]>();
 
+		//NOTE: unsure about this part in the paper... can't get the actual thing to
+		// so I just did this..
 		// double correctedFitness = (1. / 2.) * (Math.tanh(4. * (fitness / 10.) - 2.) + 1.);
-		double correctedFitness = fitness / 10;
+		double correctedFitness = fitness / 10.;
 		int numberOfRunners = (int)Math.ceil(maxRunners * correctedFitness * rnd_.nextDouble());
 
 		if (numberOfRunners == 0) {
@@ -311,6 +324,7 @@ public class player41 implements ContestSubmission
 
 		for(int i = 0; i < generations; i++)
 		{
+			//NOTE: we do have the fitness for some of these already, TODO; fix this
 			fitness = getFitnessPopulation(population, population.size());
 
 			// Sort population by fitness descending
@@ -330,7 +344,7 @@ public class player41 implements ContestSubmission
 			}
 
 			// This population sucks major ass. Lets rebuild society...
-			if(fitness[0] <= 0.0000001)
+			if(fitness[0] <= 0.00001)
 			{
 				population = createpopulation(startPopSize, dimensions);
 			}
@@ -338,11 +352,13 @@ public class player41 implements ContestSubmission
 			newPopulation.clear();
 
 			// limit the amount of new stuff...
+			// NOTE: We could add probabilities here so that lower scoring population also has a chance.
 			for(int j = 0; j < Math.min(population.size(), popSelection); j++)
 			{
 				ArrayList<double[]> runners = createRunners(population.get(j), fitness[j], maxRunners, dimensions);
 
 				// New population
+				// NOTE: normally you just add the runners only; weird results if you do that
 				newPopulation.add(population.get(j));
 				newPopulation.addAll(runners);
 			}
