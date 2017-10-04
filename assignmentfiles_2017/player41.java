@@ -315,6 +315,7 @@ public class player41 implements ContestSubmission
 			// Sort population by fitness descending
 			sortPopulation(population, fitness, population.size());
 			// out.println("Generation: " + i + "   Best fitness: " + fitness[0] + "   Current population: " + population.size());
+			out.println("Best: " + population.get(0));
 
 			// We're done here.
 			if(fitness[0] == 10.0)
