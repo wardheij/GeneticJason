@@ -152,6 +152,7 @@ public class player41 implements ContestSubmission
 	{
 		for (int i = 0; i < a.length; i++) {
 			b[i] += a[i];
+			// b[i] = (double)Math.round(b[i] * 10000d) / 10000d;
 		}
 
 		return b;
@@ -315,7 +316,12 @@ public class player41 implements ContestSubmission
 			// Sort population by fitness descending
 			sortPopulation(population, fitness, population.size());
 			// out.println("Generation: " + i + "   Best fitness: " + fitness[0] + "   Current population: " + population.size());
-			out.println("Best: " + population.get(0));
+			// out.print("Best: [");
+			// for (int j = 0; j < dimensions - 1; j++)
+			// {
+			// 	out.print(population.get(0)[j] + ", ");
+			// }
+			// out.print(population.get(0)[dimensions - 1] + "]\n");
 
 			// We're done here.
 			if(fitness[0] == 10.0)
