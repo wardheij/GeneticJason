@@ -11,7 +11,7 @@ public class player41 implements ContestSubmission
 	Random rnd_;
 	ContestEvaluation evaluation_;
     private int evaluations_limit_;
-
+	private static final MAX_DIM = 10;
 	int doThis;
 
 	public player41()
@@ -308,6 +308,51 @@ public class player41 implements ContestSubmission
 		}
 
 		return out;
+	}
+
+	public double[] gradientAscent(double[] oldState, double[] currentState, int maxIterations)
+	{
+		double[] state = currentState;
+		double alpha = 0.01; // learning rate
+		double oldGradient;
+		double gradient;
+		// TODO: init random oldState?
+
+		for (int i = 0; i < maxIterations, i++) {
+			
+			// upon convergence, break
+			if (gradient - oldGradient < 0) {
+				break;
+			}
+			// calculate gradient
+			gradient = calculateGradient(oldState, state);
+			oldState = state;
+			state = getNewState(state, gradient, alpha);
+			oldGradient = gradient;
+		}
+	}
+
+	private double calculateGradient(double[] oldState, double[] newState)
+	{
+		return (double) evaluation_.evaluate(newState) - evaluation_.evaluate(oldState);
+	}
+
+	private double[] getNewState(double[] oldState, double gradient, double alpha)
+	{
+		double[] newState = oldState.clone(); // copy vector
+		for (int i = 0; i < oldState.size(); i++)
+		{
+			double x = oldState[i]; // remember value
+
+			// adjust value by gradient
+			oldState[i] = oldState[i] + (alpha * gradient);
+
+			// if the adjustment doesn't improve the gradient, do not adjust
+			if (calculateGradient(oldState, newState) < 0) {
+				oldState[i] = x;
+			}
+		}
+		return newState;
 	}
 
 
