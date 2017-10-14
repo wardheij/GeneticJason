@@ -80,9 +80,9 @@ public class player41 implements ContestSubmission
 
 		// NOTE: THINGS WE NEED ASAP:
 		// Gradient ascent: https://en.wikipedia.org/wiki/Gradient_descent
+		// CMA-ES: https://en.wikipedia.org/wiki/CMA-ES <<<<<<< WARD <<<<<<<
 
 		// NOTE: other interesting (and quite easily implemented) options include:
-		// CMA-ES: https://en.wikipedia.org/wiki/CMA-ES
 		// ACO: https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms
 		// PSO: https://en.wikipedia.org/wiki/Particle_swarm_optimization
 		// FA: https://en.wikipedia.org/wiki/Firefly_algorithm
@@ -289,6 +289,8 @@ public class player41 implements ContestSubmission
 				child = sumArray(origin, randomArray(10, fitness));
 
 			} while(!verify(child));
+			// TODO: random restart on !verify(child)
+
 
 			children.add(child);
 		}
