@@ -326,26 +326,41 @@ public class player41 implements ContestSubmission
 		double oldGradient;
 		double gradient;
 		// TODO: init random oldState?
+		// NOTE: Ja. Ik denk dat het voor de eerste iteratie gewoon het makkelijkst
+		// is om een random positie te kiezen oid. Hebben we het even over.
 
 		for (int i = 0; i < maxIterations, i++) {
-			
+
 			// upon convergence, break
 			if (gradient - oldGradient < 0) {
 				break;
 			}
 			// calculate gradient
 			gradient = calculateGradient(oldState, state);
+
+			// NOTE: dit hieronder werkt niet lekker in Java. Gebruik hier de copyArray() die ik gemaakt heb
 			oldState = state;
 			state = getNewState(state, gradient, alpha);
 			oldGradient = gradient;
 		}
 	}
 
+	// NOTE: Idealiter wil je dit zo min mogelijk doen.
+	// Nu gebeuren er 4 evaluaties per dim per iteratie, terwijl er 1 nodig is
+	// (er is immers maar 1 nieuwe state)
+	// Daarnaast berekend dit niet de gradient, maar is dit de delta y.
+	// (verandering over de score)
+	// De gradient krijg je door de verandering in de dimensies te delen door
+	// de verandering in score. dx/dy (oftewel de numerieke afgeleide)
 	private double calculateGradient(double[] oldState, double[] newState)
 	{
 		return (double) evaluation_.evaluate(newState) - evaluation_.evaluate(oldState);
 	}
 
+	// NOTE: Dit is wel goed geloof ik.
+	// Gradient moet een array zijn van gradients; gradient[i]
+	// We moeten even nadenken over alpha. In principe is wat die if nu doet
+	// een soort van indicator geven dat alpha te groot is.
 	private double[] getNewState(double[] oldState, double gradient, double alpha)
 	{
 		double[] newState = oldState.clone(); // copy vector
@@ -429,10 +444,10 @@ public class player41 implements ContestSubmission
 		}
 	}
 
-    /* 
+    /*
      * @see CMAEvolutionStrategy
-     * 
-     * @author Nikolaus Hansen, released into public domain. 
+     *
+     * @author Nikolaus Hansen, released into public domain.
      * got this from https://github.com/okanasik/cma-es
      */
 
@@ -445,7 +460,7 @@ public class player41 implements ContestSubmission
             cma.readProperties(); // read options, see file CMAEvolutionStrategy.properties
             cma.setDimension(10); // overwrite some loaded properties
             cma.setInitialX(0.05); // in each dimension, also setTypicalX can be used
-            cma.setInitialStandardDeviation(0.2); // also a mandatory setting 
+            cma.setInitialStandardDeviation(0.2); // also a mandatory setting
             cma.options.stopFitness = 1e-14;       // optional setting
 
             // initialize cma and get fitness array to fill in later
@@ -460,29 +475,29 @@ public class player41 implements ContestSubmission
                 // --- core iteration step ---
                 double[][] pop = cma.samplePopulation(); // get a new population of solutions
                 for(int i = 0; i < pop.length; ++i) {    // for each candidate solution i
-                    // a simple way to handle constraints that define a convex feasible domain  
-                    // (like box constraints, i.e. variable boundaries) via "blind re-sampling" 
-                                                           // assumes that the feasible domain is convex, the optimum is  
-                    while (!fitfun.isFeasible(pop[i]))     //   not located on (or very close to) the domain boundary,  
-                        pop[i] = cma.resampleSingle(i);    //   initialX is feasible and initialStandardDeviations are  
+                    // a simple way to handle constraints that define a convex feasible domain
+                    // (like box constraints, i.e. variable boundaries) via "blind re-sampling"
+                                                           // assumes that the feasible domain is convex, the optimum is
+                    while (!fitfun.isFeasible(pop[i]))     //   not located on (or very close to) the domain boundary,
+                        pop[i] = cma.resampleSingle(i);    //   initialX is feasible and initialStandardDeviations are
                                                            //   sufficiently small to prevent quasi-infinite looping here
-                    // compute fitness/objective value  
+                    // compute fitness/objective value
                     // fitness[i] = fitfun.valueOf(pop[i]); // fitfun.valueOf() is to be minimized
                         fitness[i] = getFitnessPopulation(population[i], population.size());
                 }
                 cma.updateDistribution(fitness);         // pass fitness array to update search distribution
                 // --- end core iteration step ---
 
-                // output to files and console 
+                // output to files and console
                 cma.writeToDefaultFiles();
                 int outmod = 150;
                 if (cma.getCountIter() % (15*outmod) == 1)
                     cma.printlnAnnotation(); // might write file as well
                 if (cma.getCountIter() % outmod == 1)
-                    cma.println(); 
+                    cma.println();
             }
             // evaluate mean value as it is the best estimator for the optimum
-            cma.setFitnessOfMeanX(fitfun.valueOf(cma.getMeanX())); // updates the best ever solution 
+            cma.setFitnessOfMeanX(fitfun.valueOf(cma.getMeanX())); // updates the best ever solution
 
             // final output
             cma.writeToDefaultFiles(1);
@@ -490,13 +505,12 @@ public class player41 implements ContestSubmission
             cma.println("Terminated due to");
             for (String s : cma.stopConditions.getMessages())
                 cma.println("  " + s);
-            cma.println("best function value " + cma.getBestFunctionValue() 
+            cma.println("best function value " + cma.getBestFunctionValue()
                     + " at evaluation " + cma.getBestEvaluationNumber());
-                
+
             // we might return cma.getBestSolution() or cma.getBestX()
 
-        } // main  
+        } // main
     } // class
 
 }
-
