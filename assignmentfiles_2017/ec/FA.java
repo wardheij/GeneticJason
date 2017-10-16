@@ -1,7 +1,7 @@
 /**
  *
  */
-package EC;
+package ec;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

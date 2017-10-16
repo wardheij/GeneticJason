@@ -1,4 +1,4 @@
-package EC;
+package ec;
 
 // import fr.inria.optimization.cmaes.CMAEvolutionStrategy;
 // import fr.inria.optimization.cmaes.fitness.IObjectiveFunction;
@@ -64,27 +64,27 @@ public class player41 implements ContestSubmission
 	public void run()
 	{
 		// Run your algorithm here
-		if(doThis == 0)
-		{
-			//hillClimber();
-
-			// NOTE: This is basically a hillclimber with 100 startingpoints..
-			// The best one gets taken and gets 10 children etc.
-			plantPropagation(100,1,10);
-		}
-		else if (doThis == 1)
-		{
-			plantPropagation(100,100,5);
-		}
-		else if (doThis == 2)
-		{
+		// if(doThis == 0)
+		// {
+		// 	//hillClimber();
+		//
+		// 	// NOTE: This is basically a hillclimber with 100 startingpoints..
+		// 	// The best one gets taken and gets 10 children etc.
+		// 	plantPropagation(100,1,10);
+		// }
+		// else if (doThis == 1)
+		// {
+		// 	plantPropagation(100,100,5);
+		// }
+		// else if (doThis == 2)
+		// {
 			// NOTE: can't get this to work currently. Imports.
 			fireworks();
-		}
-    else if (doThis == 3)
-    {
-        // CMA_ES.optimze();
-    }
+		// }
+    // else if (doThis == 3)
+    // {
+    //     // CMA_ES.optimze();
+    // }
 
 		// NOTE: THINGS WE NEED ASAP:
 		// Gradient ascent: https://en.wikipedia.org/wiki/Gradient_descent

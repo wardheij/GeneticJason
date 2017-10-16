@@ -1,7 +1,7 @@
 /**
  *
  */
-package EC;
+package ec;
 /**
  * @author ��ΡΡ
  *

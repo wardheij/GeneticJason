@@ -1,4 +1,4 @@
-package EC;
+package ec;
 
 public class Fireworks {
 

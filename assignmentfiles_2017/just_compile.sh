@@ -1,1 +1,1 @@
-javac -cp 'contest.jar' player41.java FA.java Spark.java
+javac -cp 'contest.jar' ec/*.java
