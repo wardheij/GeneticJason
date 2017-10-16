@@ -1,9 +1,9 @@
 /**
- * 
+ *
  */
-package old;
+package EC;
 /**
- * @author ��ΡΡ
+ * @author ��ΡΡ
  *
  */
 public class Function {
@@ -11,13 +11,13 @@ public class Function {
 	private int idx;
 	//shift
 	private double shift;
-	
+
 	//set parameter
 	public void setParameter(int idx, double shift) {
 		this.idx = idx;
 		this.shift = shift;
 	}
-	
+
 	public double functionvalue (double [] para) {
 		int i;
 		double rs = 0;
@@ -30,9 +30,9 @@ public class Function {
 		switch(idx) {
 		case 1:			/* Sphere Parabola Function  Bounds[-100,100] dim30 optimum=0D ini[50,100]*/
 			for(i = 0;i < dimension;i++)
-			{  
-				rs += x[i]*x[i]; 
-			} 
+			{
+				rs += x[i]*x[i];
+			}
 			break;
 
 		case 2:			/* Schwefel 1.2    Bounds[-100,100] dim30 optimum=0D ini[50,100]	*/
@@ -44,7 +44,7 @@ public class Function {
 				{
 					tem = x[j]*x[j] + tem;
 				}
-				rs += tem; 
+				rs += tem;
 			}
 			break;
 		case 3:			/* Generalized Rosenbrock    Bounds[-30,30]   dim30 optimum=1D ini[15,30] 	 */
@@ -56,7 +56,7 @@ public class Function {
 		case 4:			/* Ackley 	Function          Bounds[-32,32]   dim30 optimum=0D ini[16,32]*/
 			tem = 0;
 			for(i = 0;i < dimension;i++)
-			{                        
+			{
 				rs += Math.pow(x[i],2.0);
 				tem += Math.cos(2*Math.PI*x[i]);
 			}
@@ -70,21 +70,21 @@ public class Function {
 		case 5:			/* Generalized Griewank's    Bounds[-600,600] dim30 optimum=0D ini[300,600]*/
 			tem = 1.0;
 			for(i = 0;i < dimension;i++)
-			{                       
-				rs += Math.pow(x[i],2.0); 
+			{
+				rs += Math.pow(x[i],2.0);
 				tem *= Math.cos(x[i]/Math.sqrt(i+1.0));
-			}   
+			}
 			rs /= 4000;
-			rs += 1 - tem;  
+			rs += 1 - tem;
 			break;
 		case 6:			/* Generalized Rastrigin     Bounds[-5.12,5.12]; dim30 optimum=0D ini[2.56,5.12]*/
 			tem = 0;
 			for(i = 0;i < dimension;i++)
-			{                       
-				rs += Math.pow(x[i],2.0); 
+			{
+				rs += Math.pow(x[i],2.0);
 				tem += Math.cos(2*Math.PI*x[i]);
-			}    
-			rs += -10*tem + 10*dimension; 
+			}
+			rs += -10*tem + 10*dimension;
 			break;
 		case 7:			/* Penalized Function P16    Bounds[-50,50] dim30 optimum=1D ini[25,50]  */
 			tem = 0;
@@ -95,11 +95,11 @@ public class Function {
 			for( i = 0; i < dimension - 1; i++)
 			{
 				rs = rs + Math.pow(x[i]-1,2)*(1 + Math.pow(Math.sin(3*Math.PI*x[i+1]),2));
-			} 
+			}
 			rs = rs + Math.pow(Math.sin(3*Math.PI*x[0]),2.0);
 			rs = rs + Math.pow(x[dimension-1]-1,2)*(1+Math.pow(Math.sin(2*Math.PI*x[dimension-1]),2));
 			rs = rs * 0.1;
-			rs = rs + tem;	
+			rs = rs + tem;
 			break;
 		case 8:		/* Six Hump Camel-back       Bounds[-5,5]  dim2 optimaum=(-0.0898,0.7126),(0.0898,-0.7126) ini[25,50]*/
 			rs = 4*Math.pow(x[0],2.0)-2.1* Math.pow(x[0],4.0)+1.0/3.0*Math.pow(x[0],6.0)+x[0]*x[1]-4*Math.pow(x[1],2)+4*Math.pow(x[1],4);
@@ -113,7 +113,7 @@ public class Function {
 			// case 13:		/* Schkel 7                  Bounds[0,10]  dim4 optimaum=4.0D ini[7.5,10]  */
 			// break;
 			// case 14:		/* Schkel 10                 Bounds[0,10]  dim4 optimaum=4.0D ini[7.5,10] */
-			// break; 
+			// break;
 		case 10:		/* Schaffer') Bounds[-100,100] dim2 optimum=0D ini [50,100]*/
 			rs = 0.5 + (Math.pow(Math.sin(Math.sqrt(x[0]*x[0]+x[1]*x[1])),2)-0.5)/Math.pow(1.0+0.001*(x[0]*x[0]+x[1]*x[1]),2);
 			break;
@@ -121,7 +121,7 @@ public class Function {
 			for( i = 0; i < dimension; i++)
 			{
 				rs = rs + i * x[i] * x[i];
-			} 
+			}
 
 			break;
 		case 12:		/* Rotated_hyper_ellipsoid Bounds[-65.536,65.536] dim 30 optimum 0.0D ini [32.768,65.536]*/
@@ -141,7 +141,7 @@ public class Function {
 		}
 		return rs;
 	}
-	
+
 	private double sphere (double [] para) {
 		int i;
 		double value = 0;
@@ -150,7 +150,7 @@ public class Function {
 		}
 		return value;
 	}
-	
+
 	private double rosenbrock (double [] para) {
 		int i;
 		double value = 0;
@@ -159,7 +159,7 @@ public class Function {
 		}
 		return value;
 	}
-	
+
 	private double rastrigrin (double [] para) {
 		int i;
 		double value = 0;
@@ -168,7 +168,7 @@ public class Function {
 		}
 		return value;
 	}
-	
+
 	private double griewank (double [] para) {
 		int i;
 		double value = 1;
@@ -182,7 +182,7 @@ public class Function {
 		value -= mul;
 		return value;
 	}
-	
+
 	private double ellipse (double [] para) {
 		int i;
 		double value = 0;
@@ -191,7 +191,7 @@ public class Function {
 		}
 		return value;
 	}
-	
+
 	private double cigar (double [] para) {
 		int i;
 		double value = para[0] * para[0];
@@ -200,7 +200,7 @@ public class Function {
 		}
 		return value;
 	}
-	
+
 	private double tablet (double [] para) {
 		int i;
 		double value = 10000 * para[0] * para[0];
@@ -209,7 +209,7 @@ public class Function {
 		}
 		return value;
 	}
-	
+
 	private double schwefel (double [] para) {
 		int i;
 		double value = 0;
@@ -218,7 +218,7 @@ public class Function {
 		}
 		return value;
 	}
-	
+
 	private double ackley (double [] para) {
 		int i;
 		double squaresum = 0;
@@ -232,7 +232,7 @@ public class Function {
 		value -= Math.exp(cossum / para.length);
 		return value;
 	}
-	
+
 	private double miu_benchmark (double x,double a,double k,double m)
 	{
 		double fit;
@@ -241,5 +241,5 @@ public class Function {
 		else {fit = k * Math.pow(-x-a, m); }
 		return fit;
 	}
-	
+
 }

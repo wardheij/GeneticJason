@@ -1,7 +1,7 @@
-package fr.inria.optimization.cmaes.examples;
+package EC;
 
-import fr.inria.optimization.cmaes.CMAEvolutionStrategy;
-import fr.inria.optimization.cmaes.fitness.IObjectiveFunction;
+// import fr.inria.optimization.cmaes.CMAEvolutionStrategy;
+// import fr.inria.optimization.cmaes.fitness.IObjectiveFunction;
 
 import org.vu.contest.ContestSubmission;
 import org.vu.contest.ContestEvaluation;
@@ -15,8 +15,7 @@ public class player41 implements ContestSubmission
 {
 	Random rnd_;
 	ContestEvaluation evaluation_;
-    private int evaluations_limit_;
-	private static final MAX_DIM = 10;
+  private int evaluations_limit_;
 	int doThis;
 
 	public player41()
@@ -82,10 +81,10 @@ public class player41 implements ContestSubmission
 			// NOTE: can't get this to work currently. Imports.
 			fireworks();
 		}
-        else if (doThis == 3)
-        {
-            CMA_ES.optimze();
-        }
+    else if (doThis == 3)
+    {
+        // CMA_ES.optimze();
+    }
 
 		// NOTE: THINGS WE NEED ASAP:
 		// Gradient ascent: https://en.wikipedia.org/wiki/Gradient_descent
@@ -319,12 +318,12 @@ public class player41 implements ContestSubmission
 		return out;
 	}
 
-	public double[] gradientAscent(double[] oldState, double[] currentState, int maxIterations)
+	public void gradientAscent(double[] oldState, double[] currentState, int maxIterations)
 	{
 		double[] state = currentState;
 		double alpha = 0.01; // learning rate
-		double oldGradient;
-		double gradient;
+		double oldGradient = 0;
+		double gradient = 1;
 		// TODO: init random oldState?
 		// NOTE: Ja. Ik denk dat het voor de eerste iteratie gewoon het makkelijkst
 		// is om een random positie te kiezen oid. Hebben we het even over.
@@ -354,7 +353,7 @@ public class player41 implements ContestSubmission
 	// de verandering in score. dx/dy (oftewel de numerieke afgeleide)
 	private double calculateGradient(double[] oldState, double[] newState)
 	{
-		return (double) evaluation_.evaluate(newState) - evaluation_.evaluate(oldState);
+		return (double) evaluation_.evaluate(newState) - (double) evaluation_.evaluate(oldState);
 	}
 
 	// NOTE: Dit is wel goed geloof ik.
@@ -364,7 +363,7 @@ public class player41 implements ContestSubmission
 	private double[] getNewState(double[] oldState, double gradient, double alpha)
 	{
 		double[] newState = oldState.clone(); // copy vector
-		for (int i = 0; i < oldState.size(); i++)
+		for (int i = 0; i < oldState.length; i++)
 		{
 			double x = oldState[i]; // remember value
 
@@ -450,67 +449,67 @@ public class player41 implements ContestSubmission
      * @author Nikolaus Hansen, released into public domain.
      * got this from https://github.com/okanasik/cma-es
      */
-
-    public class CMA_ES {
-        public static void optimize(String[] args) {
-            // IObjectiveFunction fitfun = new Rosenbrock();
-
-            // new a CMA-ES and set some initial values
-            CMAEvolutionStrategy cma = new CMAEvolutionStrategy();
-            cma.readProperties(); // read options, see file CMAEvolutionStrategy.properties
-            cma.setDimension(10); // overwrite some loaded properties
-            cma.setInitialX(0.05); // in each dimension, also setTypicalX can be used
-            cma.setInitialStandardDeviation(0.2); // also a mandatory setting
-            cma.options.stopFitness = 1e-14;       // optional setting
-
-            // initialize cma and get fitness array to fill in later
-            double[] fitness = cma.init();  // new double[cma.parameters.getPopulationSize()];
-
-            // initial output to files
-            cma.writeToDefaultFilesHeaders(0); // 0 == overwrites old files
-
-            // iteration loop
-            while(cma.stopConditions.getNumber() == 0) {
-
-                // --- core iteration step ---
-                double[][] pop = cma.samplePopulation(); // get a new population of solutions
-                for(int i = 0; i < pop.length; ++i) {    // for each candidate solution i
-                    // a simple way to handle constraints that define a convex feasible domain
-                    // (like box constraints, i.e. variable boundaries) via "blind re-sampling"
-                                                           // assumes that the feasible domain is convex, the optimum is
-                    while (!fitfun.isFeasible(pop[i]))     //   not located on (or very close to) the domain boundary,
-                        pop[i] = cma.resampleSingle(i);    //   initialX is feasible and initialStandardDeviations are
-                                                           //   sufficiently small to prevent quasi-infinite looping here
-                    // compute fitness/objective value
-                    // fitness[i] = fitfun.valueOf(pop[i]); // fitfun.valueOf() is to be minimized
-                        fitness[i] = getFitnessPopulation(population[i], population.size());
-                }
-                cma.updateDistribution(fitness);         // pass fitness array to update search distribution
-                // --- end core iteration step ---
-
-                // output to files and console
-                cma.writeToDefaultFiles();
-                int outmod = 150;
-                if (cma.getCountIter() % (15*outmod) == 1)
-                    cma.printlnAnnotation(); // might write file as well
-                if (cma.getCountIter() % outmod == 1)
-                    cma.println();
-            }
-            // evaluate mean value as it is the best estimator for the optimum
-            cma.setFitnessOfMeanX(fitfun.valueOf(cma.getMeanX())); // updates the best ever solution
-
-            // final output
-            cma.writeToDefaultFiles(1);
-            cma.println();
-            cma.println("Terminated due to");
-            for (String s : cma.stopConditions.getMessages())
-                cma.println("  " + s);
-            cma.println("best function value " + cma.getBestFunctionValue()
-                    + " at evaluation " + cma.getBestEvaluationNumber());
-
-            // we might return cma.getBestSolution() or cma.getBestX()
-
-        } // main
-    } // class
+		//
+    // public class CMA_ES {
+    //     public static void optimize(String[] args) {
+    //         // IObjectiveFunction fitfun = new Rosenbrock();
+		//
+    //         // new a CMA-ES and set some initial values
+    //         CMAEvolutionStrategy cma = new CMAEvolutionStrategy();
+    //         cma.readProperties(); // read options, see file CMAEvolutionStrategy.properties
+    //         cma.setDimension(10); // overwrite some loaded properties
+    //         cma.setInitialX(0.05); // in each dimension, also setTypicalX can be used
+    //         cma.setInitialStandardDeviation(0.2); // also a mandatory setting
+    //         cma.options.stopFitness = 1e-14;       // optional setting
+		//
+    //         // initialize cma and get fitness array to fill in later
+    //         double[] fitness = cma.init();  // new double[cma.parameters.getPopulationSize()];
+		//
+    //         // initial output to files
+    //         cma.writeToDefaultFilesHeaders(0); // 0 == overwrites old files
+		//
+    //         // iteration loop
+    //         while(cma.stopConditions.getNumber() == 0) {
+		//
+    //             // --- core iteration step ---
+    //             double[][] pop = cma.samplePopulation(); // get a new population of solutions
+    //             for(int i = 0; i < pop.length; ++i) {    // for each candidate solution i
+    //                 // a simple way to handle constraints that define a convex feasible domain
+    //                 // (like box constraints, i.e. variable boundaries) via "blind re-sampling"
+    //                                                        // assumes that the feasible domain is convex, the optimum is
+    //                 while (!fitfun.isFeasible(pop[i]))     //   not located on (or very close to) the domain boundary,
+    //                     pop[i] = cma.resampleSingle(i);    //   initialX is feasible and initialStandardDeviations are
+    //                                                        //   sufficiently small to prevent quasi-infinite looping here
+    //                 // compute fitness/objective value
+    //                 // fitness[i] = fitfun.valueOf(pop[i]); // fitfun.valueOf() is to be minimized
+    //                     fitness[i] = getFitnessPopulation(population[i], population.size());
+    //             }
+    //             cma.updateDistribution(fitness);         // pass fitness array to update search distribution
+    //             // --- end core iteration step ---
+		//
+    //             // output to files and console
+    //             cma.writeToDefaultFiles();
+    //             int outmod = 150;
+    //             if (cma.getCountIter() % (15*outmod) == 1)
+    //                 cma.printlnAnnotation(); // might write file as well
+    //             if (cma.getCountIter() % outmod == 1)
+    //                 cma.println();
+    //         }
+    //         // evaluate mean value as it is the best estimator for the optimum
+    //         cma.setFitnessOfMeanX(fitfun.valueOf(cma.getMeanX())); // updates the best ever solution
+		//
+    //         // final output
+    //         cma.writeToDefaultFiles(1);
+    //         cma.println();
+    //         cma.println("Terminated due to");
+    //         for (String s : cma.stopConditions.getMessages())
+    //             cma.println("  " + s);
+    //         cma.println("best function value " + cma.getBestFunctionValue()
+    //                 + " at evaluation " + cma.getBestEvaluationNumber());
+		//
+    //         // we might return cma.getBestSolution() or cma.getBestX()
+		//
+    //     } // main
+    // } // class
 
 }

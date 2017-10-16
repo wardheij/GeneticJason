@@ -1,6 +1,8 @@
 /**
  *
  */
+package EC;
+
 import org.vu.contest.ContestSubmission;
 import org.vu.contest.ContestEvaluation;
 /**

@@ -1,3 +1,5 @@
+package EC;
+
 public class Fireworks {
 
 	/**
