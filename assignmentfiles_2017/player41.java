@@ -329,7 +329,7 @@ public class player41 implements ContestSubmission
 		// NOTE: Ja. Ik denk dat het voor de eerste iteratie gewoon het makkelijkst
 		// is om een random positie te kiezen oid. Hebben we het even over.
 
-		for (int i = 0; i < maxIterations, i++) {
+		for (int i = 0; i < maxIterations; i++) {
 
 			// upon convergence, break
 			if (gradient - oldGradient < 0) {
