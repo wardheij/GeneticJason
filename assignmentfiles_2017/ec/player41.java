@@ -323,22 +323,22 @@ public class player41 implements ContestSubmission
 		double[] state = currentState;
 		double alpha = 0.01; // learning rate
 		double oldGradient = 0;
-		double gradient = 1;
+		double gradient[10];
 		// TODO: init random oldState?
 		// NOTE: Ja. Ik denk dat het voor de eerste iteratie gewoon het makkelijkst
 		// is om een random positie te kiezen oid. Hebben we het even over.
 
 		for (int i = 0; i < maxIterations; i++) {
 
-			// upon convergence, break
-			if (gradient - oldGradient < 0) {
-				break;
-			}
+			// // upon convergence, break
+			// if (gradient - oldGradient < 0) {
+			// 	break;
+			// }
 			// calculate gradient
 			gradient = calculateGradient(oldState, state);
 
 			// NOTE: dit hieronder werkt niet lekker in Java. Gebruik hier de copyArray() die ik gemaakt heb
-			oldState = state;
+			oldState = state.clone();
 			state = getNewState(state, gradient, alpha);
 			oldGradient = gradient;
 		}
@@ -347,20 +347,27 @@ public class player41 implements ContestSubmission
 	// NOTE: Idealiter wil je dit zo min mogelijk doen.
 	// Nu gebeuren er 4 evaluaties per dim per iteratie, terwijl er 1 nodig is
 	// (er is immers maar 1 nieuwe state)
-	// Daarnaast berekend dit niet de gradient, maar is dit de delta y.
+	// Daarnaast berekent dit niet de gradient, maar is dit de delta y.
 	// (verandering over de score)
 	// De gradient krijg je door de verandering in de dimensies te delen door
 	// de verandering in score. dx/dy (oftewel de numerieke afgeleide)
-	private double calculateGradient(double[] oldState, double[] newState)
+	private double[] calculateGradient(double[] oldState, double[] newState)
 	{
-		return (double) evaluation_.evaluate(newState) - (double) evaluation_.evaluate(oldState);
+		double gradient[10];
+		double dy = (double) evaluation_.evaluate(newState) - (double) evaluation_.evaluate(oldState);
+
+		for (int i = 0; i < oldState.length(), i++) {
+			gradient[i] = (oldState[i] - newState[i]) / dy;
+		}
+
+		return gradient;
 	}
 
 	// NOTE: Dit is wel goed geloof ik.
 	// Gradient moet een array zijn van gradients; gradient[i]
 	// We moeten even nadenken over alpha. In principe is wat die if nu doet
 	// een soort van indicator geven dat alpha te groot is.
-	private double[] getNewState(double[] oldState, double gradient, double alpha)
+	private double[] getNewState(double[] oldState, double[] gradient, double alpha)
 	{
 		double[] newState = oldState.clone(); // copy vector
 		for (int i = 0; i < oldState.length; i++)
@@ -368,12 +375,15 @@ public class player41 implements ContestSubmission
 			double x = oldState[i]; // remember value
 
 			// adjust value by gradient
-			oldState[i] = oldState[i] + (alpha * gradient);
+			oldState[i] = oldState[i] + (alpha * gradient[i]);
 
-			// if the adjustment doesn't improve the gradient, do not adjust
-			if (calculateGradient(oldState, newState) < 0) {
-				oldState[i] = x;
-			}
+			// NOTE: ik heb dit dus weggehaald omdat het nu niet meer klopt en misschien
+			// niet zo vaak gedaan hoeft te worden
+
+			// // if the adjustment doesn't improve the gradient, do not adjust
+			// if (calculateGradient(oldState, newState) < 0) {
+			// 	oldState[i] = x;
+			// }
 		}
 		return newState;
 	}
