@@ -17,7 +17,7 @@ public class player41 implements ContestSubmission
 	ContestEvaluation evaluation_;
   private int evaluations_limit_;
 	int doThis;
-
+	
 	public player41()
 	{
 		rnd_ = new Random();
