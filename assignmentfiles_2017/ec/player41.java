@@ -322,8 +322,10 @@ public class player41 implements ContestSubmission
 	{
 		double[] state = currentState;
 		double alpha = 0.01; // learning rate
-		double oldGradient = 0;
+		double oldGradient[];
 		double gradient[10];
+
+		// TODO: voor eerste stap random stap, zoals in hillclimber een gaussian ofzo
 		// TODO: init random oldState?
 		// NOTE: Ja. Ik denk dat het voor de eerste iteratie gewoon het makkelijkst
 		// is om een random positie te kiezen oid. Hebben we het even over.
@@ -331,13 +333,13 @@ public class player41 implements ContestSubmission
 		for (int i = 0; i < maxIterations; i++) {
 
 			// // upon convergence, break
-			// if (gradient - oldGradient < 0) {
-			// 	break;
-			// }
+			if (evaluation_.evaluate(newState) == 10.0) {
+				break;
+			}
+
 			// calculate gradient
 			gradient = calculateGradient(oldState, state);
 
-			// NOTE: dit hieronder werkt niet lekker in Java. Gebruik hier de copyArray() die ik gemaakt heb
 			oldState = state.clone();
 			state = getNewState(state, gradient, alpha);
 			oldGradient = gradient;
@@ -357,7 +359,7 @@ public class player41 implements ContestSubmission
 		double dy = (double) evaluation_.evaluate(newState) - (double) evaluation_.evaluate(oldState);
 
 		for (int i = 0; i < oldState.length(), i++) {
-			gradient[i] = (oldState[i] - newState[i]) / dy;
+			gradient[i] = (newState[i] - oldState[i]) / dy;
 		}
 
 		return gradient;
