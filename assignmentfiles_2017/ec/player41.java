@@ -17,7 +17,7 @@ public class player41 implements ContestSubmission
 	ContestEvaluation evaluation_;
   private int evaluations_limit_;
 	int doThis;
-	
+
 	public player41()
 	{
 		rnd_ = new Random();
@@ -64,27 +64,27 @@ public class player41 implements ContestSubmission
 	public void run()
 	{
 		// Run your algorithm here
-		// if(doThis == 0)
-		// {
-		// 	//hillClimber();
-		//
-		// 	// NOTE: This is basically a hillclimber with 100 startingpoints..
-		// 	// The best one gets taken and gets 10 children etc.
-		// 	plantPropagation(100,1,10);
-		// }
-		// else if (doThis == 1)
-		// {
-		// 	plantPropagation(100,100,5);
-		// }
-		// else if (doThis == 2)
-		// {
+		if(doThis == 0)
+		{
+			//hillClimber();
+
+			// NOTE: This is basically a hillclimber with 100 startingpoints..
+			// The best one gets taken and gets 10 children etc.
+			plantPropagation(100,1,10);
+		}
+		else if (doThis == 1)
+		{
+			plantPropagation(100,100,5);
+		}
+		else if (doThis == 2)
+		{
 			// NOTE: can't get this to work currently. Imports.
 			fireworks();
-		// }
-    // else if (doThis == 3)
-    // {
-    //     // CMA_ES.optimze();
-    // }
+		}
+    else if (doThis == 3)
+    {
+        // CMA_ES.optimze();
+    }
 
 		// NOTE: THINGS WE NEED ASAP:
 		// Gradient ascent: https://en.wikipedia.org/wiki/Gradient_descent
@@ -337,7 +337,6 @@ public class player41 implements ContestSubmission
 			// calculate gradient
 			gradient = calculateGradient(oldState, state);
 
-			// NOTE: dit hieronder werkt niet lekker in Java. Gebruik hier de copyArray() die ik gemaakt heb
 			oldState = state.clone();
 			state = getNewState(state, gradient, alpha);
 			oldGradient = gradient;
