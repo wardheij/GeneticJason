@@ -66,27 +66,27 @@ public class player41 implements ContestSubmission
 
 		gradientAscent();
 		// Run your algorithm here
-		if(doThis == 0)
-		{
-			//hillClimber();
-
-			// NOTE: This is basically a hillclimber with 100 startingpoints..
-			// The best one gets taken and gets 10 children etc.
-			plantPropagation(100,1,10);
-		}
-		else if (doThis == 1)
-		{
-			plantPropagation(100,100,5);
-		}
-		else if (doThis == 2)
-		{
-			// NOTE: can't get this to work currently. Imports.
-			fireworks();
-		}
-    else if (doThis == 3)
-    {
-        // CMA_ES.optimze();
-    }
+		// if(doThis == 0)
+		// {
+		// 	//hillClimber();
+		//
+		// 	// NOTE: This is basically a hillclimber with 100 startingpoints..
+		// 	// The best one gets taken and gets 10 children etc.
+		// 	plantPropagation(100,1,10);
+		// }
+		// else if (doThis == 1)
+		// {
+		// 	plantPropagation(100,100,5);
+		// }
+		// else if (doThis == 2)
+		// {
+		// 	// NOTE: can't get this to work currently. Imports.
+		// 	fireworks();
+		// }
+    // else if (doThis == 3)
+    // {
+    //     // CMA_ES.optimze();
+    // }
 
 		// NOTE: THINGS WE NEED ASAP:
 		// Gradient ascent: https://en.wikipedia.org/wiki/Gradient_descent
@@ -323,76 +323,98 @@ public class player41 implements ContestSubmission
 	// public void gradientAscent(double[] oldState, double[] currentState, int maxIterations)
 	public void gradientAscent()
 	{
-		// double[] state = currentState;
 		double maxIterations = evaluations_limit_;
-		// NOTE: Ja. Ik denk dat het voor de eerste iteratie gewoon het makkelijkst
-		// is om een random positie te kiezen oid. Hebben we het even over.
 
-		double[] oldState = randomStart(10);
-		double currBestFitness = (double) evaluation_.evaluate(oldState);
+		// double[] oldState = randomStart(10);
+		double[] oldState = {0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1};
+		double oldFitness = (double) evaluation_.evaluate(oldState);
 
-		double[] state = randomArray(10, currBestFitness);
-
-		double alpha = 0.01; // learning rate
+		double[] newState = sumArray(oldState, randomArray(10, oldFitness));
+		double newFitness;
 
 		double[] oldGradient= new double[10];
-		double[] gradient = new double[10];
+		double[] newGradient = new double[10];
 
-		// TODO: voor eerste stap random stap, zoals in hillclimber een gaussian ofzo
-		// TODO: init random oldState?
-		// NOTE: Ja. Ik denk dat het voor de eerste iteratie gewoon het makkelijkst
-		// is om een random positie te kiezen oid. Hebben we het even over.
-
-		for (int i = 0; i < maxIterations; i++) {
+		for (int i = 0; i < 1000; i++) {
 
 			// // upon convergence, break
-			if ((double) evaluation_.evaluate(state) == 10.0) {
+			newFitness = (double) evaluation_.evaluate(newState);
+
+			if (newFitness == 10.0) {
 				break;
 			}
 
-			// calculate gradient
-			gradient = calculateGradient(oldState, state);
+			double dy = newFitness - oldFitness;
 
-			oldState = state.clone();
-			state = getNewState(state, gradient, alpha);
-			oldGradient = gradient;
+			// System.out.println("Iteration: " + i);
+			// System.out.println("dy: " + dy + "\t newFitness: " + newFitness + "\t oldFitness: " + oldFitness);
+			//
+			// System.out.print("[");
+			// for (int xi = 0; xi < 10; xi++) {
+			// 	System.out.print(newState[xi] + ", ");
+			// }
+			// System.out.print("]\n");
+
+			// Prevent devision by 0. NOTE: dit kan ook anders
+			if (dy == 0.0)
+			{
+				dy = 0.1;
+			}
+
+			// calculate gradient
+			newGradient = calculateGradients(newState, newFitness);
+
+			// Shift back the new values as old
+			oldGradient = copyArray(newGradient);
+			oldState = copyArray(newState);
+			oldFitness = newFitness;
+
+			newState = getNewState(newState, newGradient, newFitness);
+
+			// The new state must be correct.
+			if(!verify(newState)){
+				System.out.println("new");
+				newState = randomStart(10);
+			}
+
 		}
 	}
 
-	// NOTE: Idealiter wil je dit zo min mogelijk doen.
-	// Nu gebeuren er 4 evaluaties per dim per iteratie, terwijl er 1 nodig is
-	// (er is immers maar 1 nieuwe state)
-	// Daarnaast berekent dit niet de gradient, maar is dit de delta y.
-	// (verandering over de score)
-	// De gradient krijg je door de verandering in de dimensies te delen door
-	// de verandering in score. dx/dy (oftewel de numerieke afgeleide)
-	private double[] calculateGradient(double[] oldState, double[] newState)
-	{
-
+	private double[] calculateGradients(double[] state, double fitness) {
 		double[] gradient = new double[10];
-		double dy = (double) evaluation_.evaluate(newState) - (double) evaluation_.evaluate(oldState);
+		double change;
 
-		for (int i = 0; i < oldState.length; i++) {
+		// TODO: change moet niet variabel zijn, maar deterministisch
+		fitness = Math.pow(1.5, fitness);
+		change =  (rnd_.nextDouble() - 0.5) * 2 / fitness;
 
-			gradient[i] = (newState[i] - oldState[i]) / dy;
+		for (int i = 0; i < state.length; i++) {
+
+			state[i] += change;
+			gradient[i] = (double) evaluation_.evaluate(state) - fitness;
+			state[i] -= change;
 		}
 
 		return gradient;
 	}
 
-	// NOTE: Dit is wel goed geloof ik.
-	// Gradient moet een array zijn van gradients; gradient[i]
-	// We moeten even nadenken over alpha. In principe is wat die if nu doet
-	// een soort van indicator geven dat alpha te groot is.
-	private double[] getNewState(double[] oldState, double[] gradient, double alpha)
+
+	private double[] getNewState(double[] oldState, double[] gradient, double fitness)
 	{
-		double[] newState = oldState.clone(); // copy vector
+		double[] newState = new double[10]; // copy vector
+
+		// TODO: hier moet dezelfde change gebruikt worden als hierboven.
+		fitness = Math.pow(1.5, fitness);
+		double change = (rnd_.nextDouble() - 0.5) * 2 / fitness;
+
 		for (int i = 0; i < oldState.length; i++) {
 
 			double x = oldState[i]; // remember value
 
 			// adjust value by gradient
-			oldState[i] = oldState[i] + (alpha * gradient[i]);
+			if (gradient[i] != 0.0) {
+				newState[i] = oldState[i] + (change * (1. / gradient[i]));
+			}
 		}
 		return newState;
 	}
