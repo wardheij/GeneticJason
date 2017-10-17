@@ -323,17 +323,17 @@ public class player41 implements ContestSubmission
 		double[] state = currentState;
 		double alpha = 0.01; // learning rate
 		double oldGradient = 0;
-		double gradient = 1;
+		double gradient[10];
 		// TODO: init random oldState?
 		// NOTE: Ja. Ik denk dat het voor de eerste iteratie gewoon het makkelijkst
 		// is om een random positie te kiezen oid. Hebben we het even over.
 
 		for (int i = 0; i < maxIterations; i++) {
 
-			// upon convergence, break
-			if (gradient - oldGradient < 0) {
-				break;
-			}
+			// // upon convergence, break
+			// if (gradient - oldGradient < 0) {
+			// 	break;
+			// }
 			// calculate gradient
 			gradient = calculateGradient(oldState, state);
 
@@ -360,16 +360,14 @@ public class player41 implements ContestSubmission
 			gradient[i] = (oldState[i] - newState[i]) / dy;
 		}
 
-
-
-		return dx / dy
+		return gradient;
 	}
 
 	// NOTE: Dit is wel goed geloof ik.
 	// Gradient moet een array zijn van gradients; gradient[i]
 	// We moeten even nadenken over alpha. In principe is wat die if nu doet
 	// een soort van indicator geven dat alpha te groot is.
-	private double[] getNewState(double[] oldState, double gradient, double alpha)
+	private double[] getNewState(double[] oldState, double[] gradient, double alpha)
 	{
 		double[] newState = oldState.clone(); // copy vector
 		for (int i = 0; i < oldState.length; i++)
@@ -377,12 +375,15 @@ public class player41 implements ContestSubmission
 			double x = oldState[i]; // remember value
 
 			// adjust value by gradient
-			oldState[i] = oldState[i] + (alpha * gradient);
+			oldState[i] = oldState[i] + (alpha * gradient[i]);
 
-			// if the adjustment doesn't improve the gradient, do not adjust
-			if (calculateGradient(oldState, newState) < 0) {
-				oldState[i] = x;
-			}
+			// NOTE: ik heb dit dus weggehaald omdat het nu niet meer klopt en misschien
+			// niet zo vaak gedaan hoeft te worden
+
+			// // if the adjustment doesn't improve the gradient, do not adjust
+			// if (calculateGradient(oldState, newState) < 0) {
+			// 	oldState[i] = x;
+			// }
 		}
 		return newState;
 	}
