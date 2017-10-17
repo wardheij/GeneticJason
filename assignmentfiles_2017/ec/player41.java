@@ -334,13 +334,9 @@ public class player41 implements ContestSubmission
 		double[] state = randomArray(10, currBestFitness);
 
 		double alpha = 0.01; // learning rate
-<<<<<<< Updated upstream
+
 		double[] oldGradient= new double[10];
 		double[] gradient = new double[10];
-=======
-		double oldGradient[];
-		double gradient = new double[10];
->>>>>>> Stashed changes
 
 		// TODO: voor eerste stap random stap, zoals in hillclimber een gaussian ofzo
 		// TODO: init random oldState?
@@ -372,17 +368,12 @@ public class player41 implements ContestSubmission
 	// de verandering in score. dx/dy (oftewel de numerieke afgeleide)
 	private double[] calculateGradient(double[] oldState, double[] newState)
 	{
-<<<<<<< Updated upstream
+
 		double[] gradient = new double[10];
 		double dy = (double) evaluation_.evaluate(newState) - (double) evaluation_.evaluate(oldState);
 
 		for (int i = 0; i < oldState.length; i++) {
-=======
-		double gradient = new double[10];
-		double dy = (double) evaluation_.evaluate(newState) - (double) evaluation_.evaluate(oldState);
 
-		for (int i = 0; i < oldState.length(); i++) {
->>>>>>> Stashed changes
 			gradient[i] = (newState[i] - oldState[i]) / dy;
 		}
 
