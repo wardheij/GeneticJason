@@ -63,6 +63,8 @@ public class player41 implements ContestSubmission
 
 	public void run()
 	{
+
+		gradientAscent();
 		// Run your algorithm here
 		// if(doThis == 0)
 		// {
@@ -79,7 +81,7 @@ public class player41 implements ContestSubmission
 		// else if (doThis == 2)
 		// {
 			// NOTE: can't get this to work currently. Imports.
-			fireworks();
+			// fireworks();
 		// }
     // else if (doThis == 3)
     // {
@@ -318,12 +320,22 @@ public class player41 implements ContestSubmission
 		return out;
 	}
 
-	public void gradientAscent(double[] oldState, double[] currentState, int maxIterations)
+	// public void gradientAscent(double[] oldState, double[] currentState, int maxIterations)
+	public void gradientAscent()
 	{
-		double[] state = currentState;
+		// double[] state = currentState;
+		double maxIterations = evaluations_limit_;
+		// NOTE: Ja. Ik denk dat het voor de eerste iteratie gewoon het makkelijkst
+		// is om een random positie te kiezen oid. Hebben we het even over.
+
+		double[] oldState = randomStart(10);
+		double currBestFitness = (double) evaluation_.evaluate(oldState);
+
+		double[] state = randomArray(10, currBestFitness);
+
 		double alpha = 0.01; // learning rate
-		double oldGradient[];
-		double gradient[10];
+		double[] oldGradient= new double[10];
+		double[] gradient = new double[10];
 
 		// TODO: voor eerste stap random stap, zoals in hillclimber een gaussian ofzo
 		// TODO: init random oldState?
@@ -333,7 +345,7 @@ public class player41 implements ContestSubmission
 		for (int i = 0; i < maxIterations; i++) {
 
 			// // upon convergence, break
-			if (evaluation_.evaluate(newState) == 10.0) {
+			if ((double) evaluation_.evaluate(state) == 10.0) {
 				break;
 			}
 
@@ -355,10 +367,10 @@ public class player41 implements ContestSubmission
 	// de verandering in score. dx/dy (oftewel de numerieke afgeleide)
 	private double[] calculateGradient(double[] oldState, double[] newState)
 	{
-		double gradient[10];
+		double[] gradient = new double[10];
 		double dy = (double) evaluation_.evaluate(newState) - (double) evaluation_.evaluate(oldState);
 
-		for (int i = 0; i < oldState.length(), i++) {
+		for (int i = 0; i < oldState.length; i++) {
 			gradient[i] = (newState[i] - oldState[i]) / dy;
 		}
 
@@ -372,20 +384,12 @@ public class player41 implements ContestSubmission
 	private double[] getNewState(double[] oldState, double[] gradient, double alpha)
 	{
 		double[] newState = oldState.clone(); // copy vector
-		for (int i = 0; i < oldState.length; i++)
-		{
+		for (int i = 0; i < oldState.length; i++) {
+
 			double x = oldState[i]; // remember value
 
 			// adjust value by gradient
 			oldState[i] = oldState[i] + (alpha * gradient[i]);
-
-			// NOTE: ik heb dit dus weggehaald omdat het nu niet meer klopt en misschien
-			// niet zo vaak gedaan hoeft te worden
-
-			// // if the adjustment doesn't improve the gradient, do not adjust
-			// if (calculateGradient(oldState, newState) < 0) {
-			// 	oldState[i] = x;
-			// }
 		}
 		return newState;
 	}
