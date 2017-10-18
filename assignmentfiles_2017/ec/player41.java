@@ -64,7 +64,7 @@ public class player41 implements ContestSubmission
 	public void run()
 	{
 
-		gradientAscent();
+		// gradientAscent();
 		// Run your algorithm here
 		// if(doThis == 0)
 		// {
@@ -81,11 +81,11 @@ public class player41 implements ContestSubmission
 		// else if (doThis == 2)
 		// {
 		// 	// NOTE: can't get this to work currently. Imports.
-		// 	fireworks();
+			fireworks();
 		// }
     // else if (doThis == 3)
     // {
-    //     // CMA_ES.optimze();
+        // CMA_ES.optimze();
     // }
 
 		// NOTE: THINGS WE NEED ASAP:
@@ -103,7 +103,7 @@ public class player41 implements ContestSubmission
 	{
 		double mins[] = {-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0};
 		double maxs[] = {5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0};
-		FA fire = new FA(10,10,1,1,1,10,maxs,mins,"",evaluation_);
+		FA fire = new FA(10,10,1,1,1,10,maxs,mins,evaluation_);
 		fire.FAframework();
 	}
 

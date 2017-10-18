@@ -24,7 +24,6 @@ public class FA {
 	private double [] maxbound;
 	private double [] minbound;
 	private int dimension;
-	private String infopath;
 
 	//objects of FA
 	private Spark [] fireworks;
@@ -45,7 +44,7 @@ public class FA {
 	//constructor
 	//
 
-	public FA(int n,int m,double a,double b,double am,int mg,double [] maxb,double [] minb,String info,ContestEvaluation fun) {
+	public FA(int n,int m,double a,double b,double am,int mg,double [] maxb,double [] minb,ContestEvaluation fun) {
 		numLocations = n;
 		numMaxSparks = m;
 		numBoundA = a;
@@ -55,7 +54,6 @@ public class FA {
 		maxbound = maxb;
 		minbound = minb;
 		dimension = maxbound.length;
-		infopath = info;
 
 		eps = 1e-38;
 
@@ -259,18 +257,8 @@ public class FA {
 			}
 		}
 		optimumvalue = bestspark.getvalue(func);
-		//output the best value
-		PrintStream info = null;
-		try {
-			info = new PrintStream(new FileOutputStream(infopath,true));
-		} catch (FileNotFoundException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		info.println("best value = " + (1 - optimumvalue));
-		info.println("best position = " + bestspark.getposition().toString());
-		info.println("---------------------------------------------------------");
-		info.close();
+
+
 		//select the rest n-1 locations
 		//count the number of fireworks and sparks
 		int numFireworksSparks = numLocations + numGaussianSparks;
