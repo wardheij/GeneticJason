@@ -1,0 +1,26 @@
+Sphere: 
+Regular
+Separable
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.992144640118573
+Runtime: 159ms
+
+Bent Cigar: 
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 5.864480450656426E-4
+Runtime: 352ms
+
+Schaffers: 
+Multimodal
+Regular
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.031203878999081544
+Runtime: 3844ms
+
+Katsuura: 
+Multimodal
+Score: 0.018919421141162542
+Runtime: 7295ms
