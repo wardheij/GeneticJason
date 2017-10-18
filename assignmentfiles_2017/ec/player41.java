@@ -101,6 +101,10 @@ public class player41 implements ContestSubmission
 
 	public void fireworks()
 	{
+		// NOTE: fireworks algorithm (FWA) paper ff nakijken
+		// input args: aantal startlocaties, max aantal sparks, numbound a (max afwijking??), numbound b,
+		// max amplitude, aantal gaussian sparks, maxs, mins, eval function
+		// TODO: hier een beetje mee kuttens
 		double mins[] = {-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0};
 		double maxs[] = {5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0};
 		FA fire = new FA(10,10,1,1,1,10,maxs,mins,evaluation_);
@@ -337,7 +341,7 @@ public class player41 implements ContestSubmission
 
 		for (int i = 0; i < maxIterations; i++) {
 
-			// // upon convergence, break
+			// upon convergence, break
 			newFitness = (double) evaluation_.evaluate(newState);
 
 			if (newFitness == 10.0) {
@@ -346,33 +350,24 @@ public class player41 implements ContestSubmission
 
 			double dy = newFitness - oldFitness;
 
-			// System.out.println("Iteration: " + i);
-			// System.out.println("dy: " + dy + "\t newFitness: " + newFitness + "\t oldFitness: " + oldFitness);
-			//
-			// System.out.print("[");
-			// for (int xi = 0; xi < 10; xi++) {
-			// 	System.out.print(newState[xi] + ", ");
-			// }
-			// System.out.print("]\n");
-
 			// Prevent devision by 0. NOTE: dit kan ook anders
-			if (dy == 0.0)
+			if (dy != 0.0)
 			{
-				dy = 0.1;
-			}
+				// calculate gradient
+				newGradient = calculateGradients(newState, newFitness);
 
-			// calculate gradient
-			newGradient = calculateGradients(newState, newFitness);
+				// Shift back the new values as old
+				oldGradient = copyArray(newGradient);
+				oldState = copyArray(newState);
+				oldFitness = newFitness;
 
-			// Shift back the new values as old
-			oldGradient = copyArray(newGradient);
-			oldState = copyArray(newState);
-			oldFitness = newFitness;
+				newState = getNewState(newState, newGradient, newFitness);
 
-			newState = getNewState(newState, newGradient, newFitness);
-
-			// The new state must be correct.
-			if(!verify(newState)){
+				// The new state must be correct.
+				if(!verify(newState)){
+					newState = randomStart(10);
+				}
+			} else {
 				newState = randomStart(10);
 			}
 
@@ -384,13 +379,17 @@ public class player41 implements ContestSubmission
 		double change;
 
 		// TODO: change moet niet variabel zijn, maar deterministisch
-		fitness = Math.pow(1.5, fitness);
-		change =  (rnd_.nextDouble() - 0.5) * 2 / fitness;
+		// fitness = Math.pow(1.5, fitness);
+		// change =  (rnd_.nextDouble() - 0.5) * 2 / fitness;
+		change = 0.01;
+
+		// System.out.println("Begin \t change: " + change);
 
 		for (int i = 0; i < state.length; i++) {
 
 			state[i] += change;
-			gradient[i] = (double) evaluation_.evaluate(state) - fitness;
+			gradient[i] = ((double) evaluation_.evaluate(state) - fitness) / change;
+			// System.out.println(gradient[i]);
 			state[i] -= change;
 		}
 
@@ -403,8 +402,7 @@ public class player41 implements ContestSubmission
 		double[] newState = new double[10]; // copy vector
 
 		// TODO: hier moet dezelfde change gebruikt worden als hierboven.
-		fitness = Math.pow(1.5, fitness);
-		double change = (rnd_.nextDouble() - 0.5) * 2 / fitness;
+		double change = 10 - fitness;
 
 		for (int i = 0; i < oldState.length; i++) {
 
@@ -412,7 +410,7 @@ public class player41 implements ContestSubmission
 
 			// adjust value by gradient
 			if (gradient[i] != 0.0) {
-				newState[i] = oldState[i] + (change * (1. / gradient[i]));
+				newState[i] = oldState[i] + change * gradient[i];
 			}
 		}
 		return newState;
