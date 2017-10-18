@@ -65,6 +65,8 @@ public class player41 implements ContestSubmission
 	{
 
 		// NOTE: Hier kan je veranderen
+		// Arguments: starting population size, limit of population size,
+		// maximum runners, boolean for when to use gradient ascent
 		plantPropagation(100,100,5,true);
 
 		// gradientAscent({0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1});
@@ -79,7 +81,7 @@ public class player41 implements ContestSubmission
 		// }
 		// else if (doThis == 1)
 		// {
-			plantPropagation(100,100,5,true);
+			// plantPropagation(100,100,5,true);
 		// }
 		// else if (doThis == 2)
 		// {
@@ -166,6 +168,7 @@ public class player41 implements ContestSubmission
 				// fitness = 1 << (int)fitness;
 				// fitness = factorial((int)fitness);
 				// fitness = gammaFact(fitness);
+				// NOTE: Hier kan je veranderen
 				fitness = Math.pow(1.5, fitness);
 			}
 
@@ -479,6 +482,9 @@ public class player41 implements ContestSubmission
 			}
 
 		}
+
+		System.out.println("Fitness after PPA: " + fitness[0]);
+
 		if (optimise) {
 			gradientAscent(population.get(0));
 		}
