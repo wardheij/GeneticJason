@@ -64,7 +64,7 @@ public class player41 implements ContestSubmission
 	public void run()
 	{
 
-		// gradientAscent();
+		// gradientAscent({0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1});
 		// Run your algorithm here
 		// if(doThis == 0)
 		// {
@@ -76,12 +76,12 @@ public class player41 implements ContestSubmission
 		// }
 		// else if (doThis == 1)
 		// {
-		// 	plantPropagation(100,100,5);
+			plantPropagation(100,100,5,true);
 		// }
 		// else if (doThis == 2)
 		// {
 		// 	// NOTE: can't get this to work currently. Imports.
-			fireworks();
+			// fireworks();
 		// }
     // else if (doThis == 3)
     // {
@@ -321,12 +321,12 @@ public class player41 implements ContestSubmission
 	}
 
 	// public void gradientAscent(double[] oldState, double[] currentState, int maxIterations)
-	public void gradientAscent()
+	public void gradientAscent(double[] givenState)
 	{
-		double maxIterations = evaluations_limit_;
+		double maxIterations = evaluations_limit_ / 11;
 
 		// double[] oldState = randomStart(10);
-		double[] oldState = {0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1};
+		double[] oldState = givenState;
 		double oldFitness = (double) evaluation_.evaluate(oldState);
 
 		double[] newState = sumArray(oldState, randomArray(10, oldFitness));
@@ -335,7 +335,7 @@ public class player41 implements ContestSubmission
 		double[] oldGradient= new double[10];
 		double[] newGradient = new double[10];
 
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < maxIterations; i++) {
 
 			// // upon convergence, break
 			newFitness = (double) evaluation_.evaluate(newState);
@@ -373,7 +373,6 @@ public class player41 implements ContestSubmission
 
 			// The new state must be correct.
 			if(!verify(newState)){
-				System.out.println("new");
 				newState = randomStart(10);
 			}
 
@@ -420,7 +419,7 @@ public class player41 implements ContestSubmission
 	}
 
 
-	public void plantPropagation(int a, int b, int c)
+	public void plantPropagation(int a, int b, int c, boolean optimise)
 	{
 		int dimensions = 10;
 		// SPPA parameters
@@ -428,6 +427,7 @@ public class player41 implements ContestSubmission
 		int popSelection = b;
 		int maxRunners = c;
 		int generations = evaluations_limit_;
+		int currEvals = 0;
 
 		ArrayList<double[]> population = createpopulation(startPopSize, dimensions);
 		double fitness[];
@@ -437,6 +437,7 @@ public class player41 implements ContestSubmission
 		{
 			//NOTE: we do have the fitness for some of these already, TODO; fix this
 			fitness = getFitnessPopulation(population, population.size());
+			currEvals += population.size();
 
 			// Sort population by fitness descending
 			sortPopulation(population, fitness, population.size());
@@ -449,7 +450,7 @@ public class player41 implements ContestSubmission
 			// out.print(population.get(0)[dimensions - 1] + "]\n");
 
 			// We're done here.
-			if(fitness[0] == 10.0)
+			if((fitness[0] >= 9.9 || currEvals > evaluations_limit_ * 0.95) && optimise )
 			{
 				break;
 			}
@@ -481,6 +482,9 @@ public class player41 implements ContestSubmission
 				population.add(copyArray(newPopulation.get(j)));
 			}
 
+		}
+		if (optimise) {
+			gradientAscent(population.get(0));
 		}
 	}
 
