@@ -64,6 +64,9 @@ public class player41 implements ContestSubmission
 	public void run()
 	{
 
+		// NOTE: Hier kan je veranderen
+		plantPropagation(100,100,5,true);
+
 		// gradientAscent({0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1});
 		// Run your algorithm here
 		// if(doThis == 0)
@@ -107,6 +110,8 @@ public class player41 implements ContestSubmission
 		// TODO: hier een beetje mee kuttens
 		double mins[] = {-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0};
 		double maxs[] = {5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0};
+
+		// NOTE: Hier kan je veranderen
 		FA fire = new FA(10,10,1,1,1,10,maxs,mins,evaluation_);
 		fire.FAframework();
 	}
@@ -378,9 +383,7 @@ public class player41 implements ContestSubmission
 		double[] gradient = new double[10];
 		double change;
 
-		// TODO: change moet niet variabel zijn, maar deterministisch
-		// fitness = Math.pow(1.5, fitness);
-		// change =  (rnd_.nextDouble() - 0.5) * 2 / fitness;
+		// NOTE: Hier kan je veranderen
 		change = 0.01;
 
 		// System.out.println("Begin \t change: " + change);
@@ -401,8 +404,8 @@ public class player41 implements ContestSubmission
 	{
 		double[] newState = new double[10]; // copy vector
 
-		// TODO: hier moet dezelfde change gebruikt worden als hierboven.
-		double change = (10 - fitness) / 100;
+		// NOTE: Hier kan je veranderen
+		double change = (10 - fitness) / 1.;
 
 		for (int i = 0; i < oldState.length; i++) {
 
@@ -439,14 +442,9 @@ public class player41 implements ContestSubmission
 
 			// Sort population by fitness descending
 			sortPopulation(population, fitness, population.size());
-			// out.println("Generation: " + i + "   Best fitness: " + fitness[0] + "   Current population: " + population.size());
-			// out.print("Best: [");
-			// for (int j = 0; j < dimensions - 1; j++)
-			// {
-			// 	out.print(population.get(0)[j] + ", ");
-			// }
-			// out.print(population.get(0)[dimensions - 1] + "]\n");
 
+
+			// NOTE: Hier kan je veranderen
 			// We're done here.
 			if((fitness[0] >= 9.9 || currEvals > evaluations_limit_ * 0.95) && optimise )
 			{
