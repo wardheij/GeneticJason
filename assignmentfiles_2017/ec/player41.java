@@ -402,7 +402,7 @@ public class player41 implements ContestSubmission
 		double[] newState = new double[10]; // copy vector
 
 		// TODO: hier moet dezelfde change gebruikt worden als hierboven.
-		double change = 10 - fitness;
+		double change = (10 - fitness) / 100;
 
 		for (int i = 0; i < oldState.length; i++) {
 
