@@ -67,8 +67,8 @@ public class player41 implements ContestSubmission
 		// NOTE: Hier kan je veranderen
 		// Arguments: starting population size, limit of population size,
 		// maximum runners, boolean for when to use gradient ascent
-		plantPropagation(10,10,5,true);
-
+		// plantPropagation(10,10,5,true);
+		hillClimber(randomStart(10), true);
 
  		/*
 		Bent cigar: 10,10,5, false = 9.998920714133174
@@ -79,7 +79,7 @@ public class player41 implements ContestSubmission
 		// Run your algorithm here
 		// if(doThis == 0)
 		// {
-			hillClimber();
+			// hillClimber();
 		//
 		// 	// NOTE: This is basically a hillclimber with 100 startingpoints..
 		// 	// The best one gets taken and gets 10 children etc.
@@ -124,23 +124,25 @@ public class player41 implements ContestSubmission
 		fire.FAframework();
 	}
 
-	public void hillClimber()
+	public void hillClimber(double[] start, boolean randomStart)
 	{
 		int evals = 0;
-		double currBest[] = randomStart(10);
+		double currBest[] = start;
 		double currBestFitness = (double) evaluation_.evaluate(currBest);
 		evals++;
 
 		// Test randoms for 1% of evals
-		for(int i = 0; i < evaluations_limit_ * 0.1; i++, evals++)
-		{
-			double child[]= randomStart(10);
+		if(randomStart) {
+			for(int i = 0; i < evaluations_limit_ * 0.1; i++, evals++)
+			{
+				double child[]= randomStart(10);
 
-			double fitness = (double) evaluation_.evaluate(child);
+				double fitness = (double) evaluation_.evaluate(child);
 
-			if (fitness >= currBestFitness) {
-				currBestFitness = fitness;
-				currBest = child;
+				if (fitness >= currBestFitness) {
+					currBestFitness = fitness;
+					currBest = child;
+				}
 			}
 		}
 
@@ -166,22 +168,32 @@ public class player41 implements ContestSubmission
 
 	public double[] randomArray(int n, double fitness){
 			double arr[] = new double[n];
+			double change;
+			double rand;
+
 
 			if (fitness <= 1){
-				fitness = 1;
+				change = 1;
 			} else {
 				// fitness *= fitness;
 				// fitness = 1 << (int)fitness;
 				// fitness = factorial((int)fitness);
 				// fitness = gammaFact(fitness);
 				// NOTE: Hier kan je veranderen
-				fitness = Math.pow(1.5, fitness);
+				change = Math.pow(1.5, fitness);
 			}
 
 			for (int i = 0; i < n; i++) {
 				// arr[i] = (rnd_.nextDouble() - 0.5)*2 / fitness;
+				rand = rnd_.nextGaussian();
 
-				arr[i] = rnd_.nextGaussian() / fitness;
+				if (1. / change < (10. - fitness)) {
+					arr[i] =  rand / change;
+				} else {
+					// arr[i] =  rand / change;
+					arr[i] =  rand * (10. - fitness) / 2.16;
+				}
+
 			}
 
 			return arr;
@@ -492,7 +504,8 @@ public class player41 implements ContestSubmission
 		System.out.println("Fitness after PPA: " + fitness[0]);
 
 		if (optimise) {
-			gradientAscent(population.get(0));
+			hillClimber(population.get(0),false);
+			// gradientAscent(population.get(0));
 		}
 	}
 
