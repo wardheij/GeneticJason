@@ -387,7 +387,7 @@ public class player41 implements ContestSubmission
 		double change;
 
 		// NOTE: Hier kan je veranderen
-		change = 0.01;
+		change = 0.001;
 
 		// System.out.println("Begin \t change: " + change);
 
@@ -408,7 +408,7 @@ public class player41 implements ContestSubmission
 		double[] newState = new double[10]; // copy vector
 
 		// NOTE: Hier kan je veranderen
-		double change = (10 - fitness) / 1.;
+		double change = (10 - fitness) / 100.;
 
 		for (int i = 0; i < oldState.length; i++) {
 

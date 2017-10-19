@@ -3,26 +3,26 @@ Regular
 Separable
 Your code has thrown an Exception/Error!
 This would halt execution (the best score achieved so far would be assigned)
-Score: 7.304954518874311
-Runtime: 102ms
+Score: 0.0
+Runtime: 112ms
 
 Bent Cigar: 
 Your code has thrown an Exception/Error!
 This would halt execution (the best score achieved so far would be assigned)
-Score: 9.467090892729958
-Runtime: 85ms
+Score: 9.998920714133174
+Runtime: 83ms
 
 Schaffers: 
 Multimodal
 Regular
 Your code has thrown an Exception/Error!
 This would halt execution (the best score achieved so far would be assigned)
-Score: 9.705571059550042
-Runtime: 2249ms
+Score: 9.727230445992982
+Runtime: 1959ms
 
 Katsuura: 
 Multimodal
 Your code has thrown an Exception/Error!
 This would halt execution (the best score achieved so far would be assigned)
-Score: 0.018715820582059485
-Runtime: 20108ms
+Score: 0.36671822351004363
+Runtime: 20531ms
