@@ -1,13 +1,13 @@
-javac -cp 'contest.jar' ec/*.java
-jar cmf MainClass.txt submission.jar ec/*.class
+javac -cp 'contest.jar' *.java
+jar cmf MainClass.txt submission.jar *.class
 echo "Sphere: "
-java -jar testrun.jar -submission=ec.player41 -evaluation=SphereEvaluation -seed=1
+java -jar testrun.jar -submission=player41 -evaluation=SphereEvaluation -seed=1
 echo ""
 echo "Bent Cigar: "
-java -jar testrun.jar -submission=ec.player41 -evaluation=BentCigarFunction -seed=1
+java -jar testrun.jar -submission=player41 -evaluation=BentCigarFunction -seed=1
 echo ""
 echo "Schaffers: "
-java -jar testrun.jar -submission=ec.player41 -evaluation=SchaffersEvaluation -seed=1
+java -jar testrun.jar -submission=player41 -evaluation=SchaffersEvaluation -seed=1
 echo ""
 echo "Katsuura: "
-java -jar testrun.jar -submission=ec.player41 -evaluation=KatsuuraEvaluation -seed=1
+java -jar testrun.jar -submission=player41 -evaluation=KatsuuraEvaluation -seed=1

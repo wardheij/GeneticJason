@@ -1,1 +1,1 @@
-javac -cp 'contest.jar' ec/*.java
+javac -cp 'contest.jar' *.java
