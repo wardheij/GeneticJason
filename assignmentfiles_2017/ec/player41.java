@@ -85,7 +85,7 @@ public class player41 implements ContestSubmission
 		// }
 		// else if (doThis == 2)
 		// {
-		// 	// NOTE: can't get this to work currently. Imports.
+		// 	// NOTE: Dit werkt nu semi
 			fireworks();
 		// }
     // else if (doThis == 3)
@@ -434,7 +434,7 @@ public class player41 implements ContestSubmission
 		int currEvals = 0;
 
 		ArrayList<double[]> population = createpopulation(startPopSize, dimensions);
-		double fitness[];
+		double fitness[] = new double[10];
 		ArrayList<double[]> newPopulation = new ArrayList<double[]>();
 
 		for(int i = 0; i < generations; i++)
