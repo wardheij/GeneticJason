@@ -67,7 +67,12 @@ public class player41 implements ContestSubmission
 		// NOTE: Hier kan je veranderen
 		// Arguments: starting population size, limit of population size,
 		// maximum runners, boolean for when to use gradient ascent
-		plantPropagation(50,100,5,false);
+		plantPropagation(10,10,5,true);
+
+
+ 		/*
+		Bent cigar: 10,10,5, false = 9.998920714133174
+		*/
 
 		// gradientAscent({0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1});
 		// Run your algorithm here
@@ -387,7 +392,7 @@ public class player41 implements ContestSubmission
 		double change;
 
 		// NOTE: Hier kan je veranderen
-		change = 0.01;
+		change = 0.001;
 
 		// System.out.println("Begin \t change: " + change);
 
@@ -408,7 +413,7 @@ public class player41 implements ContestSubmission
 		double[] newState = new double[10]; // copy vector
 
 		// NOTE: Hier kan je veranderen
-		double change = (10 - fitness) / 1.;
+		double change = (10 - fitness) / 100.;
 
 		for (int i = 0; i < oldState.length; i++) {
 
