@@ -73,7 +73,7 @@ public class player41 implements ContestSubmission
 		// Run your algorithm here
 		// if(doThis == 0)
 		// {
-		// 	//hillClimber();
+			hillClimber();
 		//
 		// 	// NOTE: This is basically a hillclimber with 100 startingpoints..
 		// 	// The best one gets taken and gets 10 children etc.
@@ -86,7 +86,7 @@ public class player41 implements ContestSubmission
 		// else if (doThis == 2)
 		// {
 		// 	// NOTE: Dit werkt nu semi
-			fireworks();
+			// fireworks();
 		// }
     // else if (doThis == 3)
     // {
@@ -126,7 +126,7 @@ public class player41 implements ContestSubmission
 		evals++;
 
 		// Test randoms for 1% of evals
-		for(int i = 0; i < evaluations_limit_ * 0.01; i++, evals++)
+		for(int i = 0; i < evaluations_limit_ * 0.1; i++, evals++)
 		{
 			double child[]= randomStart(10);
 
