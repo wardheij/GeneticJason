@@ -67,7 +67,13 @@ public class player41 implements ContestSubmission
 		// NOTE: Hier kan je veranderen
 		// Arguments: starting population size, limit of population size,
 		// maximum runners, boolean for when to use gradient ascent
-		// plantPropagation(100,100,5,true);
+		plantPropagation(10,10,5,true);
+
+
+ 		/*
+		Bent cigar: 10,10,5, false = 9.998920714133174
+		Met gradient ascent = 9.9991159791627
+		*/
 
 		// gradientAscent({0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1});
 		// Run your algorithm here
