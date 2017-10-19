@@ -67,7 +67,7 @@ public class player41 implements ContestSubmission
 		// NOTE: Hier kan je veranderen
 		// Arguments: starting population size, limit of population size,
 		// maximum runners, boolean for when to use gradient ascent
-		plantPropagation(100,100,5,true);
+		// plantPropagation(100,100,5,true);
 
 		// gradientAscent({0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1});
 		// Run your algorithm here
@@ -86,7 +86,7 @@ public class player41 implements ContestSubmission
 		// else if (doThis == 2)
 		// {
 		// 	// NOTE: can't get this to work currently. Imports.
-			// fireworks();
+			fireworks();
 		// }
     // else if (doThis == 3)
     // {
@@ -114,7 +114,7 @@ public class player41 implements ContestSubmission
 		double maxs[] = {5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0};
 
 		// NOTE: Hier kan je veranderen
-		FA fire = new FA(10,10,1,1,1,10,maxs,mins,evaluation_);
+		FA fire = new FA(10,10,0.0001,0.1,0.1,10,maxs,mins,evaluation_);
 		fire.FAframework();
 	}
 
