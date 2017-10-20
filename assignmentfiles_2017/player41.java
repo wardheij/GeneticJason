@@ -64,23 +64,27 @@ public class player41 implements ContestSubmission
 
 	public void run()
 	{
-		// SPHERE
-		if (doThis == 0) {
-			hillClimber(randomStart(10), true);
-		}
-		// BENT CIGAR
-		else if (doThis == 1) {
-			hillClimber(randomStart(10), true);
-		}
-		// SCHAFFERS
-		else if (doThis == 2) {
-			plantPropagation(100,20,10,true);
-		}
-		// KATSUURA
-		else if (doThis == 3) {
-			plantPropagation(100,10,10,true);
-			// hillClimber(randomStart(10), true);
-		}
+		hillClimber(randomStart(10), true);
+
+
+		// COMPETITION:
+		// // SPHERE
+		// if (doThis == 0) {
+		// 	hillClimber(randomStart(10), true);
+		// }
+		// // BENT CIGAR
+		// else if (doThis == 1) {
+		// 	hillClimber(randomStart(10), true);
+		// }
+		// // SCHAFFERS
+		// else if (doThis == 2) {
+		// 	plantPropagation(100,20,10,true);
+		// }
+		// // KATSUURA
+		// else if (doThis == 3) {
+		// 	plantPropagation(500,10,10,true);
+		// 	// hillClimber(randomStart(10), true);
+		// }
 
 
 		// NOTE: Hier kan je veranderen
@@ -151,7 +155,8 @@ public class player41 implements ContestSubmission
 		double currBestFitness = (double) evaluation_.evaluate(currBest);
 		evals++;
 
-		// Test randoms for 1% of evals
+		// Test randoms for 5% of evals
+		System.out.println("Start Random search");
 		if(randomStart) {
 			for(int i = 0; i < evaluations_limit_ * 0.05; i++, evals++)
 			{
@@ -165,9 +170,11 @@ public class player41 implements ContestSubmission
 				}
 			}
 		}
+		System.out.println("Evals done: " + evals + "\t currBest: " + currBestFitness);
 
 		// Hillclimb
-		for(; evals < evaluations_limit_ *2 ; evals++)
+		System.out.println("Start Hillclimber");
+		for(int i = 0; evals < evaluations_limit_ *2 ; i++, evals++)
 		{
 		    double child[];
 				do
@@ -188,7 +195,9 @@ public class player41 implements ContestSubmission
 					// 	}
 					// 	System.out.print("\n");
 					// }
+					System.out.println("Evals done: " + evals + "\t Iterations done:" + i + "\t currBest: " + currBestFitness);
 		    }
+
 		}
 
 	}
@@ -199,8 +208,8 @@ public class player41 implements ContestSubmission
 			double rand;
 
 
-			if (fitness <= 9.9999 && doThis == 3){
-				change = 9.9999;
+			if (fitness <= 9.999 && doThis == 3){
+				change = 9.999;
 			} else if (fitness <= 1.) {
 				change = 1.;
 			} else {
