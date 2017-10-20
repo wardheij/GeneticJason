@@ -64,8 +64,10 @@ public class player41 implements ContestSubmission
 
 	public void run()
 	{
-		hillClimber(randomStart(10), true);
-
+		// NOTE: Dit hieronder mag Wardman veranderen
+		// hillClimber(randomStart(10), true);
+		// gradientAscent(randomStart(10));
+		plantPropagation(100,20,10,true);
 
 		// COMPETITION:
 		// // SPHERE
@@ -397,13 +399,16 @@ public class player41 implements ContestSubmission
 		double[] oldState = givenState;
 		double oldFitness = (double) evaluation_.evaluate(oldState);
 
+		int evals = 1;
+
 		double[] newState = sumArray(oldState, randomArray(10, oldFitness));
 		double newFitness;
 
 		double[] oldGradient= new double[10];
 		double[] newGradient = new double[10];
 
-		for (int i = 0; i < maxIterations; i++) {
+		System.out.println("Start Gradient Ascent");
+		for (int i = 0; i < maxIterations; i++, evals += 11) {
 
 			// upon convergence, break
 			newFitness = (double) evaluation_.evaluate(newState);
@@ -423,6 +428,11 @@ public class player41 implements ContestSubmission
 				// Shift back the new values as old
 				oldGradient = copyArray(newGradient);
 				oldState = copyArray(newState);
+
+				if (newFitness != oldFitness) {
+					System.out.println("Evals done: " + evals + "\t Iterations done:" + i + "\t currBest: " + newFitness);
+				}
+
 				oldFitness = newFitness;
 
 				newState = getNewState(newState, newGradient, newFitness);
@@ -504,6 +514,7 @@ public class player41 implements ContestSubmission
 		ArrayList<double[]> newPopulation = new ArrayList<double[]>();
 		ArrayList<double[]> parentPopulation = new ArrayList<double[]>();
 
+		System.out.println("Start PPA \t optimise == " + optimise);
 		for(int i = 0; i < generations; i++)
 		{
 			//NOTE: we do have the fitness for some of these already, TODO; fix this
@@ -518,6 +529,7 @@ public class player41 implements ContestSubmission
 			// Sort population by fitness descending
 			sortPopulation(population, fitness, population.size());
 
+			System.out.println("Evals done: " + currEvals + "\t Iterations done:" + i + "\t currBest: " + fitness[0]);
 
 			// NOTE: Hier kan je veranderen
 			// We're done here.
@@ -569,7 +581,9 @@ public class player41 implements ContestSubmission
 
 		// System.out.println("Fitness after PPA: " + fitness[0]);
 
+
 		if (optimise) {
+			System.out.println("Start Optimising");
 			hillClimber(population.get(0),false);
 			// gradientAscent(population.get(0));
 		}
