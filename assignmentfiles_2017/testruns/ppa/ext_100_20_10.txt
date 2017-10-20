@@ -1,0 +1,210 @@
+Bent Cigar: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.999866532393774
+Runtime: 214ms
+
+Schaffers: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.801835205476829
+Runtime: 1330ms
+
+Katsuura: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.2294902467661401
+Runtime: 16248ms
+
+Bent Cigar: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.999845804641458
+Runtime: 197ms
+
+Schaffers: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.896973124053828
+Runtime: 1540ms
+
+Katsuura: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.07990714368753511
+Runtime: 16419ms
+
+Bent Cigar: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.999754287943308
+Runtime: 100ms
+
+Schaffers: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.861790661684491
+Runtime: 1768ms
+
+Katsuura: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.1226777334003294
+Runtime: 17036ms
+
+Bent Cigar: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.999900422239703
+Runtime: 165ms
+
+Schaffers: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.864739150344063
+Runtime: 2107ms
+
+Katsuura: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.051721387808368297
+Runtime: 18170ms
+
+Bent Cigar: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.999840080098913
+Runtime: 92ms
+
+Schaffers: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.88081691301309
+Runtime: 2145ms
+
+Katsuura: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.23481875381920198
+Runtime: 16387ms
+
+Bent Cigar: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.999847942491378
+Runtime: 135ms
+
+Schaffers: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.608384485954494
+Runtime: 2289ms
+
+Katsuura: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.25869198995428605
+Runtime: 17087ms
+
+Bent Cigar: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.999841614149656
+Runtime: 107ms
+
+Schaffers: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.864590994886221
+Runtime: 2435ms
+
+Katsuura: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.14497671736726192
+Runtime: 17408ms
+
+Bent Cigar: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.999783611604055
+Runtime: 168ms
+
+Schaffers: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.728978833260392
+Runtime: 2692ms
+
+Katsuura: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.04437745229097309
+Runtime: 16724ms
+
+Bent Cigar: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.999880775529347
+Runtime: 178ms
+
+Schaffers: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.312502826164776
+Runtime: 2289ms
+
+Katsuura: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.18340260216033408
+Runtime: 19767ms
+
+Bent Cigar: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.9998328246084
+Runtime: 101ms
+
+Schaffers: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 9.814527709441474
+Runtime: 2388ms
+
+Katsuura: 
+Start PPA 	 optimise == false
+Your code has thrown an Exception/Error!
+This would halt execution (the best score achieved so far would be assigned)
+Score: 0.19770001935496323
+Runtime: 18333ms
+
