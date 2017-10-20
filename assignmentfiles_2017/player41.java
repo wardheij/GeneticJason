@@ -64,91 +64,25 @@ public class player41 implements ContestSubmission
 
 	public void run()
 	{
-		// NOTE: Dit hieronder mag Wardman veranderen
-		// hillClimber(randomStart(10), true);
-		// gradientAscent(randomStart(10));
-		plantPropagation(100,20,10,true);
-
 		// COMPETITION:
-		// // SPHERE
-		// if (doThis == 0) {
-		// 	hillClimber(randomStart(10), true);
-		// }
-		// // BENT CIGAR
-		// else if (doThis == 1) {
-		// 	hillClimber(randomStart(10), true);
-		// }
-		// // SCHAFFERS
-		// else if (doThis == 2) {
-		// 	plantPropagation(100,20,10,true);
-		// }
-		// // KATSUURA
-		// else if (doThis == 3) {
-		// 	plantPropagation(500,10,10,true);
-		// 	// hillClimber(randomStart(10), true);
-		// }
+		// SPHERE
+		if (doThis == 0) {
+			hillClimber(randomStart(10), true);
+		}
+		// BENT CIGAR
+		else if (doThis == 1) {
+			hillClimber(randomStart(10), true);
+		}
+		// SCHAFFERS
+		else if (doThis == 2) {
+			plantPropagation(100,20,10,true);
+		}
+		// KATSUURA
+		else if (doThis == 3) {
+			plantPropagation(500,10,10,true);
+		}
 
-
-		// NOTE: Hier kan je veranderen
-		// Arguments: starting population size, limit of population size,
-		// maximum runners, boolean for when to use gradient ascent
-		// double[] best = {-0.9834660541846688, 3.9989628049684143, -0.03450711521271392, -3.6983268937672626, -0.16993874297604888, -2.005807744012281, 1.316047788321597, -0.7554255420929396, 1.2576857872585403, -0.34731371004629663};
-		// double[] bester = {-0.8769834225748079, 3.986525783347586, 0.2165911806779934, -3.826501010567435, -0.5463687273044712, -2.1273290948673242, 1.404444555725618, -0.7400086520131887, 1.104208104626944, -0.29776781620998516};
-
-
- 		/*
-		Bent cigar: 10,10,5, false = 9.998920714133174
-		Met gradient ascent = 9.9991159791627
-		*/
-
-		// gradientAscent({0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1});
-		// Run your algorithm here
-		// if(doThis == 0)
-		// {
-			// hillClimber();
-		//
-		// 	// NOTE: This is basically a hillclimber with 100 startingpoints..
-		// 	// The best one gets taken and gets 10 children etc.
-		// 	plantPropagation(100,1,10);
-		// }
-		// else if (doThis == 1)
-		// {
-			// plantPropagation(100,100,5,true);
-		// }
-		// else if (doThis == 2)
-		// {
-		// 	// NOTE: Dit werkt nu semi
-			// fireworks();
-		// }
-    // else if (doThis == 3)
-    // {
-        // CMA_ES.optimze();
-    // }
-
-		// NOTE: THINGS WE NEED ASAP:
-		// Gradient ascent: https://en.wikipedia.org/wiki/Gradient_descent
-		// CMA-ES: https://en.wikipedia.org/wiki/CMA-ES <<<<<<< WARD <<<<<<<
-
-		// NOTE: other interesting (and quite easily implemented) options include:
-		// ACO: https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms
-		// PSO: https://en.wikipedia.org/wiki/Particle_swarm_optimization
-		// FA: https://en.wikipedia.org/wiki/Firefly_algorithm
-		// EDA: https://en.wikipedia.org/wiki/Estimation_of_distribution_algorithm
 	}
-
-	// public void fireworks()
-	// {
-	// 	// NOTE: fireworks algorithm (FWA) paper ff nakijken
-	// 	// input args: aantal startlocaties, max aantal sparks, numbound a (max afwijking??), numbound b,
-	// 	// max amplitude, aantal gaussian sparks, maxs, mins, eval function
-	// 	// TODO: hier een beetje mee kuttens
-	// 	double mins[] = {-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0,-5.0};
-	// 	double maxs[] = {5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0};
-	//
-	// 	// NOTE: Hier kan je veranderen
-	// 	FA fire = new FA(10,10,0.0001,0.1,0.1,10,maxs,mins,evaluation_);
-	// 	fire.FAframework();
-	// }
 
 	public void hillClimber(double[] start, boolean randomStart)
 	{
@@ -158,7 +92,7 @@ public class player41 implements ContestSubmission
 		evals++;
 
 		// Test randoms for 5% of evals
-		System.out.println("Start Random search");
+		// System.out.println("Start Random search");
 		if(randomStart) {
 			for(int i = 0; i < evaluations_limit_ * 0.05; i++, evals++)
 			{
@@ -172,10 +106,10 @@ public class player41 implements ContestSubmission
 				}
 			}
 		}
-		System.out.println("Evals done: " + evals + "\t currBest: " + currBestFitness);
+		// System.out.println("Evals done: " + evals + "\t currBest: " + currBestFitness);
 
 		// Hillclimb
-		System.out.println("Start Hillclimber");
+		// System.out.println("Start Hillclimber");
 		for(int i = 0; evals < evaluations_limit_ *2 ; i++, evals++)
 		{
 		    double child[];
@@ -191,13 +125,7 @@ public class player41 implements ContestSubmission
 		    	currBestFitness = fitness;
 					currBest = child;
 
-					// if (currBestFitness > 9.99999996) {
-					// 	for (int x = 0; x < currBest.length; x++ ) {
-					// 		System.out.print(currBest[x] + ", ");
-					// 	}
-					// 	System.out.print("\n");
-					// }
-					System.out.println("Evals done: " + evals + "\t Iterations done:" + i + "\t currBest: " + currBestFitness);
+					// System.out.println("Evals done: " + evals + "\t Iterations done:" + i + "\t currBest: " + currBestFitness);
 		    }
 
 		}
@@ -219,18 +147,15 @@ public class player41 implements ContestSubmission
 				// fitness = 1 << (int)fitness;
 				// fitness = factorial((int)fitness);
 				// fitness = gammaFact(fitness);
-				// NOTE: Hier kan je veranderen
 				change = Math.pow(1.6, fitness);
 			}
 
 			for (int i = 0; i < n; i++) {
-				// arr[i] = (rnd_.nextDouble() - 0.5)*2 / fitness;
 				rand = rnd_.nextGaussian();
 
 				if (1. / change < (10. - fitness)) {
 					arr[i] = rand / change;
 				} else {
-					// arr[i] = rand * (10. - fitness) / 1.052515;
 					arr[i] = rand * (10. - fitness) / 2.16;
 				}
 
@@ -243,7 +168,6 @@ public class player41 implements ContestSubmission
 	{
 		for (int i = 0; i < a.length; i++) {
 			b[i] += a[i];
-			// b[i] = (double)Math.round(b[i] * 10000d) / 10000d;
 		}
 
 		return b;
@@ -333,24 +257,10 @@ public class player41 implements ContestSubmission
 		}
 	}
 
-	public double[] getD(int n, double fitness){
-			double arr[] = new double[n];
-
-			for (int i = 0; i < n; i++) {
-				// arr[i] = 2 * (1 - fitness) * (rnd_.nextDouble() - 0.5);
-				// arr[i] = rnd_.nextGaussian() / Math.pow(1.5, fitness);
-
-			}
-
-			return arr;
-	}
-
 	public ArrayList<double[]> createRunners(double[] origin, double fitness, int maxRunners, int dimensions)
 	{
 		ArrayList<double[]> children = new ArrayList<double[]>();
 
-		//NOTE: unsure about this part in the paper... can't get the actual thing to
-		// so I just did this..
 		// double correctedFitness = (1. / 2.) * (Math.tanh(4. * (fitness / 10.) - 2.) + 1.);
 		double correctedFitness = fitness / 10.;
 		int numberOfRunners = (int)Math.ceil(maxRunners * correctedFitness * rnd_.nextDouble());
@@ -365,11 +275,8 @@ public class player41 implements ContestSubmission
 
 			do
 			{
-				// child = sumArray(origin, getD(10, fitness));
 				child = sumArray(origin, randomArray(10, fitness));
-
 			} while(!verify(child));
-			// TODO: random restart on !verify(child)
 
 
 			children.add(child);
@@ -390,7 +297,6 @@ public class player41 implements ContestSubmission
 		return out;
 	}
 
-	// public void gradientAscent(double[] oldState, double[] currentState, int maxIterations)
 	public void gradientAscent(double[] givenState)
 	{
 		double maxIterations = evaluations_limit_ / 11;
@@ -407,12 +313,11 @@ public class player41 implements ContestSubmission
 		double[] oldGradient= new double[10];
 		double[] newGradient = new double[10];
 
-		System.out.println("Start Gradient Ascent");
+		// System.out.println("Start Gradient Ascent");
 		for (int i = 0; i < maxIterations; i++, evals += 11) {
-
-			// upon convergence, break
 			newFitness = (double) evaluation_.evaluate(newState);
 
+			// upon convergence, break
 			if (newFitness == 10.0) {
 				break;
 			}
@@ -429,9 +334,9 @@ public class player41 implements ContestSubmission
 				oldGradient = copyArray(newGradient);
 				oldState = copyArray(newState);
 
-				if (newFitness != oldFitness) {
-					System.out.println("Evals done: " + evals + "\t Iterations done:" + i + "\t currBest: " + newFitness);
-				}
+				// if (newFitness != oldFitness) {
+				// 	System.out.println("Evals done: " + evals + "\t Iterations done:" + i + "\t currBest: " + newFitness);
+				// }
 
 				oldFitness = newFitness;
 
@@ -452,7 +357,6 @@ public class player41 implements ContestSubmission
 		double[] gradient = new double[10];
 		double change;
 
-		// NOTE: Hier kan je veranderen
 		change = 0.001;
 
 		// System.out.println("Begin \t change: " + change);
@@ -473,7 +377,6 @@ public class player41 implements ContestSubmission
 	{
 		double[] newState = new double[10]; // copy vector
 
-		// NOTE: Hier kan je veranderen
 		double change = (10 - fitness) / 100.;
 
 		for (int i = 0; i < oldState.length; i++) {
@@ -514,10 +417,9 @@ public class player41 implements ContestSubmission
 		ArrayList<double[]> newPopulation = new ArrayList<double[]>();
 		ArrayList<double[]> parentPopulation = new ArrayList<double[]>();
 
-		System.out.println("Start PPA \t optimise == " + optimise);
+		// System.out.println("Start PPA \t optimise == " + optimise);
 		for(int i = 0; i < generations; i++)
 		{
-			//NOTE: we do have the fitness for some of these already, TODO; fix this
 			fitness = getFitnessPopulation(population, population.size());
 			currEvals += population.size();
 
@@ -529,9 +431,8 @@ public class player41 implements ContestSubmission
 			// Sort population by fitness descending
 			sortPopulation(population, fitness, population.size());
 
-			System.out.println("Evals done: " + currEvals + "\t Iterations done:" + i + "\t currBest: " + fitness[0]);
+			// System.out.println("Evals done: " + currEvals + "\t Iterations done:" + i + "\t currBest: " + fitness[0]);
 
-			// NOTE: Hier kan je veranderen
 			// We're done here.
 			if((fitness[0] >= 9.9 || currEvals > evaluations_limit_ * 0.8) && optimise )
 			{
@@ -548,24 +449,14 @@ public class player41 implements ContestSubmission
 			parentPopulation.clear();
 
 			// limit the amount of new stuff...
-			// NOTE: We could add probabilities here so that lower scoring population also has a chance.
 			for(int j = 0; j < Math.min(population.size(), popSelection); j++)
 			{
 				ArrayList<double[]> runners = createRunners(population.get(j), fitness[j], maxRunners, dimensions);
 
 				// New population
-				// NOTE: normally you just add the runners only; weird results if you do that
-
-				// if (rnd_.nextDouble() < 0.000000001) {
-				// 	double[] r = randomStart(10);
-				// 	parentPopulation.add(r);
-				// 	double[] temp = {(double) evaluation_.evaluate(r)};
-				// 	parentFitness = concat(parentFitness, temp);
-				// } else {
-					parentPopulation.add(population.get(j));
-					double[] temp = {fitness[j]};
-					parentFitness = concat(parentFitness, temp);
-				// }
+				parentPopulation.add(population.get(j));
+				double[] temp = {fitness[j]};
+				parentFitness = concat(parentFitness, temp);
 
 				newPopulation.addAll(runners);
 			}
@@ -581,9 +472,8 @@ public class player41 implements ContestSubmission
 
 		// System.out.println("Fitness after PPA: " + fitness[0]);
 
-
 		if (optimise) {
-			System.out.println("Start Optimising");
+			// System.out.println("Start Optimising");
 			hillClimber(population.get(0),false);
 			// gradientAscent(population.get(0));
 		}
